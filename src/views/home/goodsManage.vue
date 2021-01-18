@@ -23,19 +23,6 @@
               class="input-with-select"
             ></el-input>
           </el-form-item>
-          <el-form-item label="仓库名称：">
-            <el-select
-              v-model="searchFormData.searchStore"
-              placeholder="请选择所在仓库"
-            >
-              <el-option
-                v-for="item in this.storeList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
-            </el-select>
-          </el-form-item>
           <el-form-item class="el-form-item">
             <el-button type="primary" @click="pageSearchEvent">查询</el-button>
             <el-button @click="pageSearchResetEvent">重置</el-button>
@@ -113,7 +100,7 @@
           <el-form-item label="物品规格：" prop="unit">
             <el-input v-model="formData.unit" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="所在仓库：" prop="store_id">
+          <!-- <el-form-item label="所在仓库：" prop="store_id">
             <el-select
               v-model="formData.store_id"
               placeholder="请选择所在仓库"
@@ -126,7 +113,7 @@
                 :value="item.id"
               ></el-option>
             </el-select>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="备注：" prop="remark">
             <el-input v-model="formData.remark" type="textarea"></el-input>
           </el-form-item>
@@ -223,7 +210,6 @@ export default {
           page,
           name,
           number,
-          store_id,
         },
       }).then((res) => {
         let data = res.data;
@@ -288,6 +274,7 @@ export default {
       this.$refs["formRulesRef"].validate((valid) => {
         if (valid) {
           let data = that.formData;
+           that.formData.store_id=0;
           let url = "/product/addProduct";
           let baseid = this.formData.id;
           if (typeof baseid != "undefined") {
