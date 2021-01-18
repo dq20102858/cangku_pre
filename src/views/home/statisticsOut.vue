@@ -97,7 +97,7 @@
             label="出库时间"
             sortable
           ></el-table-column>
-          <el-table-column prop="store" label="出库位置"></el-table-column>
+          <el-table-column prop="store" label="仓库名称"></el-table-column>
         </el-table>
         <div class="app-pagination" v-if="dataList.length !== 0">
           <el-pagination

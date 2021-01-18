@@ -63,7 +63,7 @@
           ></el-table-column>
           <el-table-column prop="unit" label="物品规格"></el-table-column>
           <el-table-column prop="stock" label="物品数量"></el-table-column>
-          <el-table-column prop="store" label="存放位置"></el-table-column>
+          <el-table-column prop="store" label="仓库名称"></el-table-column>
         </el-table>
         <div class="app-pagination">
           <el-pagination

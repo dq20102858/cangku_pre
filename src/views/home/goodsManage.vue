@@ -42,7 +42,6 @@
           <el-table-column prop="number" label="物品编号"></el-table-column>
           <el-table-column prop="name" label="物品名称"></el-table-column>
           <el-table-column prop="unit" label="物品规格"></el-table-column>
-          <el-table-column prop="store" label="仓库名称"></el-table-column>
           <el-table-column prop="remark" label="备注"></el-table-column>
           <el-table-column label="操作" width="88">
             <template slot-scope="scope">
