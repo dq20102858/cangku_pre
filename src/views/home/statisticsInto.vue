@@ -48,8 +48,8 @@
             </el-date-picker>
           </el-form-item>
           <el-form-item class="el-form-item">
-            <el-button type="primary" @click="searchEvent">查询</el-button>
-            <el-button @click="searchResetEvent">重置</el-button>
+            <el-button type="primary" @click="pageSearchEvent">查询</el-button>
+            <el-button @click="pageSearchResetEvent">重置</el-button>
           </el-form-item>
           <el-form-item class="el-form-year">
             <span
@@ -97,7 +97,7 @@
             label="入库时间"
             sortable
           ></el-table-column>
-          <el-table-column prop="address" label="入库位置"></el-table-column>
+          <el-table-column prop="store" label="入库位置"></el-table-column>
         </el-table>
         <div class="app-pagination" v-if="dataList.length !== 0">
           <el-pagination
@@ -133,6 +133,7 @@ export default {
   created() {
     this.getDataList();
     this.getStoreTypes();
+    this.getStoreLists();
   },
   methods: {
     getDataList() {
@@ -169,11 +170,11 @@ export default {
       this.page_cur = value;
       this.getDataList();
     },
-    searchEvent() {
+    pageSearchEvent() {
       this.page_cur = 1;
       this.getDataList();
     },
-    searchResetEvent() {
+    pageSearchResetEvent() {
       this.searchFormData = {};
       this.searchFormData.searchDateType = 1;
       this.page_cur = 1;
@@ -195,12 +196,10 @@ export default {
         }
       });
     },
-    searchStoreTypeChange(ele) {
-      this.$set(this.searchFormData, "searchStore", "");
+   getStoreLists() {
       this.request({
-        url: "store/getStoreLists",
+        url: "/store/getStoreLists",
         method: "get",
-        params: { type_id: ele },
       }).then((response) => {
         var res = response.data;
         if (res.status == 1) {
