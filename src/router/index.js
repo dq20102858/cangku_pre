@@ -52,8 +52,8 @@ const constantRouterMap = [
         component: () => import('@/views/home/goodsManage')
       },
       {
-        path: '/warehouseManage',
-        component: () => import('@/views/home/warehouseManage')
+        path: '/storeManage',
+        component: () => import('@/views/home/storeManage')
       },
       {
         path: '/userManage',

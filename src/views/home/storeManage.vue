@@ -128,7 +128,7 @@
               <el-button
                 style="margin-left: 15px"
                 type="primary"
-                @click="addWarehouseType"
+                @click="addStoreType"
                 >新增</el-button
               >
             </el-col>
@@ -150,8 +150,8 @@
             <el-col :span="4">
               <el-button
                 style="margin-left: 15px"
-                type="primary"
-                @click="addWarehousePosition"
+                type="primary" 
+                @click="addStoreAddress"
                 >新增</el-button
               >
             </el-col>
@@ -405,7 +405,7 @@ export default {
         }
       });
     },
-    addWarehouseType() {
+    addStoreType() {
       this.$prompt("类型名称：", "新增仓库类型", {
         customClass: "el-message-box-new",
         closeOnClickModal: false,
@@ -434,7 +434,7 @@ export default {
         })
         .catch(() => {});
     },
-    addWarehousePosition() {
+    addStoreAddress() {
       this.$prompt("仓库位置：", "新增仓库位置", {
         customClass: "el-message-box-new",
         closeOnClickModal: false,

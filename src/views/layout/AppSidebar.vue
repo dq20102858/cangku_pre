@@ -82,7 +82,7 @@ export default {
           children: [
             {
               id: 21,
-              moduleAction: "warehouseManage",
+              moduleAction: "storeManage",
               moduleIcon: "",
               moduleName: "仓库管理 ",
             },
