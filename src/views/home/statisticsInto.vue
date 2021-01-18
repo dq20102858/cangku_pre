@@ -85,7 +85,7 @@
         >
           <el-table-column label="序号" width="80px">
             <template slot-scope="scope">{{
-              scope.$index + (page_cur - 1) * page_size + 1
+              scope.$index + (page_current - 1) * page_size + 1
             }}</template>
           </el-table-column>
           <el-table-column prop="number" label="物品编号"></el-table-column>
@@ -105,7 +105,7 @@
                         prev-text="上一页"   
             next-text="下一页"
             layout="total,  prev, pager, next, jumper"
-            :current-page="this.page_cur"
+            :current-page="this.page_current"
             :page-size="this.page_size"
             :total="this.page_total"
             @current-change="pageChange"
@@ -121,7 +121,7 @@ export default {
   data() {
     return {
       searchFormData: { searchDateType: 1 },
-      page_cur: 1,
+      page_current: 1,
       page_size: 20,
       page_total: 0,
       dataList: [],
@@ -143,7 +143,7 @@ export default {
       let store_type_id = this.searchFormData.searchStoreType;
       let time = this.searchFormData.serachTime;
       let date_type = this.searchFormData.searchDateType;
-      let page = this.page_cur;
+      let page = this.page_current;
       this.request({
         url: "/product/getStoreLogs",
         method: "get",
@@ -160,29 +160,29 @@ export default {
         let data = res.data;
         if (data.status == 1) {
           this.dataList = data.data.data;
-          this.page_cur = parseInt(data.data.current_page);
+          this.page_current = parseInt(data.data.current_page);
           this.page_total = data.data.total;
           this.page_size = data.data.per_page;
         }
       });
     },
     pageChange(value) {
-      this.page_cur = value;
+      this.page_current = value;
       this.getDataList();
     },
     pageSearchEvent() {
-      this.page_cur = 1;
+      this.page_current = 1;
       this.getDataList();
     },
     pageSearchResetEvent() {
       this.searchFormData = {};
       this.searchFormData.searchDateType = 1;
-      this.page_cur = 1;
+      this.page_current = 1;
       this.getDataList();
     },
     searchYearEvent(val) {
       this.searchFormData.searchDateType = val;
-      this.page_cur = 1;
+      this.page_current = 1;
       this.getDataList();
     },
     getStoreTypes() {
