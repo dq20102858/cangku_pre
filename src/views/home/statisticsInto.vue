@@ -89,20 +89,24 @@
             }}</template>
           </el-table-column>
           <el-table-column prop="number" label="物品编号"></el-table-column>
-          <el-table-column prop="name" label="物品名称"></el-table-column>
+          <el-table-column
+            prop="product_name"
+            label="物品名称"
+          ></el-table-column>
           <el-table-column prop="unit" label="物品规格"></el-table-column>
           <el-table-column prop="stock" label="入库数量"></el-table-column>
-          <el-table-column
+          <el-table-column prop="store" label="仓库名称"></el-table-column>
+          <el-table-column prop="store_type" label="仓库类型"></el-table-column>
+            <el-table-column  width="160"
             prop="create_time"
             label="入库时间"
             sortable
           ></el-table-column>
-          <el-table-column prop="store" label="仓库名称"></el-table-column>
         </el-table>
         <div class="app-pagination" v-if="dataList.length !== 0">
           <el-pagination
             background
-                        prev-text="上一页"   
+            prev-text="上一页"
             next-text="下一页"
             layout="total,  prev, pager, next, jumper"
             :current-page="this.page_current"
@@ -137,7 +141,7 @@ export default {
   },
   methods: {
     getDataList() {
-      let type = 1;//出入库类别，1入库，2出库
+      let type = 1; //出入库类别，1入库，2出库
       let name = this.searchFormData.searchName;
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
@@ -196,7 +200,7 @@ export default {
         }
       });
     },
-   getStoreLists() {
+    getStoreLists() {
       this.request({
         url: "/store/getStoreLists",
         method: "get",

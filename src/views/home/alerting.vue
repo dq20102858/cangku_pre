@@ -123,7 +123,7 @@
               disabled
             ></el-input>
           </el-form-item>
-          <el-form-item label="仓库类型：" prop="type_id">
+          <!-- <el-form-item label="仓库类型：" prop="type_id">
             <el-select v-model="formData.type_id">
               <el-option
                 v-for="item in this.storeTypeList"
@@ -132,7 +132,7 @@
                 :value="item.id"
               ></el-option>
             </el-select>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="仓库名称：">
             <el-select v-model="formData.store_id">
               <el-option
@@ -149,10 +149,7 @@
             </el-input>
           </el-form-item>
           <el-form-item label="告警数量：" prop="num">
-            <el-input
-              v-model="formData.num"
-              autocomplete="off"
-            ></el-input>
+            <el-input v-model="formData.num" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -255,11 +252,16 @@ export default {
       this.$refs["formRulesRef"].validate((valid) => {
         if (valid) {
           let data = that.formData;
+          let name = that.formData.name;
+          let store_id = that.formData.store_id;
+          let product_id = that.formData.product_id;
+          let num = that.formData.num;
+          let id = that.formData.id;
           let url = "/store/editAlert";
           this.request({
             url: url,
             method: "post",
-            data,
+            data: { id, name, store_id, product_id, num },
           }).then((response) => {
             var data = response.data;
             if (data.status == 1) {

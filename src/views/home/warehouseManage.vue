@@ -394,6 +394,17 @@ export default {
         }
       });
     },
+    getAdminLists() {
+      this.request({
+        url: "/user/getAdminLists",
+        method: "get",
+      }).then((response) => {
+        var res = response.data;
+        if (res.status == 1) {
+          this.adminList = res.data;
+        }
+      });
+    },
     addWarehouseType() {
       this.$prompt("类型名称：", "新增仓库类型", {
         customClass: "el-message-box-new",
@@ -452,17 +463,7 @@ export default {
         })
         .catch(() => {});
     },
-    getAdminLists() {
-      this.request({
-        url: "/user/getAdminLists",
-        method: "get",
-      }).then((response) => {
-        var res = response.data;
-        if (res.status == 1) {
-          this.adminList = res.data;
-        }
-      });
-    },
+
     //
   },
 };
