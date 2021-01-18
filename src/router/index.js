@@ -22,50 +22,50 @@ const constantRouterMap = [
   },
   {
     path: '/',
-    component: () => import('@/views/home/list'),
+    component: () => import('@/views/pages/list'),
     component: Layout,
 
   },
   {
-    path: '/home',
+    path: '/pages',
     component: Layout,
     hidden: true,
     children: [
       {
         path: '/list',
-        component: () => import('@/views/home/list')
+        component: () => import('@/views/pages/list')
       },
       {
         path: '/listInTo',
-        component: () => import('@/views/home/listInTo')
+        component: () => import('@/views/pages/listInTo')
       },
       {
         path: '/listOut',
-        component: () => import('@/views/home/listOut')
+        component: () => import('@/views/pages/listOut')
       }, 
       {
         path: '/alerting',
-        component: () => import('@/views/home/alerting')
+        component: () => import('@/views/pages/alerting')
       },
       {
         path: '/goodsManage',
-        component: () => import('@/views/home/goodsManage')
+        component: () => import('@/views/pages/goodsManage')
       },
       {
         path: '/storeManage',
-        component: () => import('@/views/home/storeManage')
+        component: () => import('@/views/pages/storeManage')
       },
       {
         path: '/userManage',
-        component: () => import('@/views/home/userManage')
+        component: () => import('@/views/pages/userManage')
       },
       {
         path: '/statisticsInto',
-        component: () => import('@/views/home/statisticsInto')
+        component: () => import('@/views/pages/statisticsInto')
       },
       {
         path: '/statisticsOut',
-        component: () => import('@/views/home/statisticsOut')
+        component: () => import('@/views/pages/statisticsOut')
       }
     ]
   }
