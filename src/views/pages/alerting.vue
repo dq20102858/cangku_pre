@@ -1,5 +1,8 @@
 <template>
   <div class="app-alert-page">
+       <div class="el-search">
+      <div class="prepend">库存告警</div>
+    </div>
     <div class="app-page">
       <div class="app-page-select">
         <el-form :inline="true">

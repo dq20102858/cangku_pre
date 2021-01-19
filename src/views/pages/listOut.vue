@@ -80,12 +80,13 @@
           <el-table-column prop="manager" label="出库人员"></el-table-column>
           <el-table-column prop="depart" label="所属部门"></el-table-column>
           <el-table-column prop="store" label="仓库名称"></el-table-column>
+          <el-table-column prop="store_type" label="仓库类型"></el-table-column>
           <el-table-column label="出库详情" width="80">
             <template slot-scope="scope">
               <div class="app-operation">
                 <el-button
                   class="btn-detail"
-                  @click="showClick(scope.row.id)"
+                  @click="editRecEvent(scope.row.id)"
                   title="编辑"
                   ><i class="el-icon-set-up"></i
                 ></el-button>
@@ -106,13 +107,50 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      width="680px"
+      class="dialog-listinto"
+      title="出库详情"
+      :close-on-click-modal="false"
+      :visible.sync="diaLogFormVisible"
+    >
+<el-card class="box-card">
+  <div  class="text item">
+    <div class="userinfo">
+        <p><span>出库人员：</span> {{ formData.user }}</p>
+        <p><span>仓库名称： </span>{{ formData.store }}</p>
+        <p><span>出库时间：</span> {{ formData.create_time }}</p>
+      </div>
+  </div>
+</el-card>
+<el-card class="box-card">
+  <div slot="header" class="clearfix">
+    <h3>物品明细</h3>
+  </div>
+  <div  class="text item">
+     <div class="app-table app-table-nowrap">
+        <el-table :data="formData.list" border stripe>
+          <el-table-column prop="number" label="物品编号"></el-table-column>
+          <el-table-column
+            prop="product_name"
+            label="物品名称"
+          ></el-table-column>
+          <el-table-column prop="num" label="数量"></el-table-column>
+          <el-table-column prop="unit" label="规格"></el-table-column>
+        </el-table>
+      </div>
+  </div>
+</el-card>
+    </el-dialog>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      diaLogFormVisible: false,
       searchFormData: {},
+      formData:[],
       page_current: 1,
       page_total: 0,
       page_size: 20,
@@ -130,17 +168,18 @@ export default {
   },
   methods: {
     getDataList() {
-      let type = 2; //出入库类别，1入库，2出库
+      let type = 2; //出出库类别，1出库，2出库
       let page = this.page_current;
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
       let user_id = this.searchFormData.searchUsers;
       let time = this.searchFormData.serachDate;
       this.request({
-        url: "/product/getStoreLogs",
+        url: "/store/getStoreLogs",
         method: "get",
         params: {
           page,
+          type,
           store_id,
           store_type_id,
           user_id,
@@ -201,10 +240,35 @@ export default {
           this.adminList = res.data;
         }
       });
+    },  editRecEvent(id) {
+      this.diaLogFormVisible = true;
+      this.request({
+        url: "/store/getLogDetail",
+        method: "get",
+        params: { id: id },
+      }).then((res) => {
+        let data = res.data;
+        if (data.status == 1) {
+          this.formData = data.data;
+        }
+      });
     },
     //
   },
 };
 </script>
 <style>
+.dialog-listinto .el-card {
+  margin-bottom: 20px;
+}
+.userinfo {
+  display: flex;
+  justify-content: space-between;
+}
+.userinfo p {
+  color: #999;
+}
+.userinfo p span {
+  color: #333;
+}
 </style>

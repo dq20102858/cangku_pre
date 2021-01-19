@@ -12,7 +12,7 @@
               class="input-with-select"
             ></el-input>
           </el-form-item>
-          <el-form-item class="el-form-item" label="仓库类型：">
+          <!-- <el-form-item class="el-form-item" label="仓库类型：">
             <el-select
               v-model="searchFormData.searchStoreType"
               placeholder="选择仓库类型"
@@ -25,7 +25,7 @@
                 :value="item.id"
               ></el-option>
             </el-select>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item class="el-form-item" label="仓库名称：">
             <el-select
               v-model="searchFormData.searchStore"
@@ -149,7 +149,7 @@ export default {
       let date_type = this.searchFormData.searchDateType;
       let page = this.page_current;
       this.request({
-        url: "/product/getStoreLogs",
+        url: "/store/stockStatistics",
         method: "get",
         params: {
           type,
