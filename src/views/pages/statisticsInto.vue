@@ -94,7 +94,7 @@
             label="物品名称"
           ></el-table-column>
           <el-table-column prop="unit" label="物品规格"></el-table-column>
-          <el-table-column prop="stock" label="入库数量"></el-table-column>
+          <el-table-column prop="num" label="入库数量"></el-table-column>
           <el-table-column prop="store" label="仓库名称"></el-table-column>
           <el-table-column prop="store_type" label="仓库类型"></el-table-column>
             <el-table-column  width="160"
