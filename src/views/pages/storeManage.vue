@@ -8,6 +8,7 @@
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="仓库名称：">
             <el-input
+              maxlength="30"
               v-model="searchFormData.searchName"
               class="input-with-select"
             ></el-input>
@@ -17,6 +18,7 @@
               v-model="searchFormData.searchStoreType"
               placeholder="请选择仓库类型"
             >
+              <el-option label="全部类型" value=""></el-option>
               <el-option
                 v-for="item in storeTypeList"
                 :key="item.id"
@@ -30,6 +32,7 @@
               v-model="searchFormData.searchStoreAddress"
               placeholder="请选择仓库位置"
             >
+              <el-option label="全部位置" value=""></el-option>
               <el-option
                 v-for="item in addressList"
                 :key="item.id"
@@ -150,7 +153,7 @@
             <el-col :span="4">
               <el-button
                 style="margin-left: 15px"
-                type="primary" 
+                type="primary"
                 @click="addStoreAddress"
                 >新增</el-button
               >
@@ -181,7 +184,7 @@ export default {
     return {
       diaLogFormVisible: false,
       diaLogTitle: "添加人员信息",
-      searchFormData: {},
+      searchFormData: { searchStoreType: "", searchStoreAddress: "" },
       formData: {},
       formRules: {
         name: [
@@ -278,7 +281,7 @@ export default {
       this.getDataList();
     },
     pageSearchResetEvent() {
-      this.searchFormData = {};
+      this.searchFormData = { searchStoreType: "", searchStoreAddress: "" };
       this.page_current = 1;
       this.getDataList();
     },

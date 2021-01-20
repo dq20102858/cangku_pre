@@ -1,6 +1,6 @@
 <template>
   <div class="app-alert-page">
-       <div class="el-search">
+    <div class="el-search">
       <div class="prepend">库存告警</div>
     </div>
     <div class="app-page">
@@ -8,6 +8,7 @@
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="物品名称：">
             <el-input
+              maxlength="30"
               v-model="searchFormData.searchName"
               class="input-with-select"
             ></el-input>
@@ -17,6 +18,7 @@
               v-model="searchFormData.searchStoreType"
               placeholder="请选择仓库类型"
             >
+              <el-option label="全部类型" value=""></el-option>
               <el-option
                 v-for="item in storeTypeList"
                 :key="item.id"
@@ -27,9 +29,10 @@
           </el-form-item>
           <el-form-item class="el-form-item" label="仓库名称：">
             <el-select
-              v-model="searchFormData.searchStoreName"
+              v-model="searchFormData.searchStore"
               placeholder="请选择仓库位置"
             >
+              <el-option label="全部仓库" value=""></el-option>
               <el-option
                 v-for="item in storeList"
                 :key="item.id"
@@ -67,7 +70,10 @@
             }}</template>
           </el-table-column>
           <el-table-column prop="number" label="物品编号"></el-table-column>
-          <el-table-column prop="product" label="物品名称"></el-table-column>
+          <el-table-column
+            prop="product_name"
+            label="物品名称"
+          ></el-table-column>
           <el-table-column prop="unit" label="物品规格"></el-table-column>
           <el-table-column prop="stock" label="物品数量"></el-table-column>
           <el-table-column prop="store" label="仓库名称"></el-table-column>
@@ -91,7 +97,6 @@
           </el-pagination>
         </div>
       </div>
-   
     </div>
   </div>
 </template>
@@ -99,7 +104,10 @@
 export default {
   data() {
     return {
-      searchFormData: {},
+      searchFormData: {
+        searchStoreType: "",
+        searchStore: "",
+      },
       diaLogFormVisible: false,
       formData: {},
       formRules: {
@@ -133,8 +141,8 @@ export default {
     getDataList() {
       let page = this.page_current;
       let name = this.searchFormData.searchName;
-      let type_id = this.searchFormData.searchStoreType;
-      let type_name = this.searchFormData.searchStoreName;
+      let store_type_id = this.searchFormData.searchStoreType;
+      let store_id = this.searchFormData.searchStore;
       let date = this.searchFormData.serachDate;
       this.request({
         url: "/store/getAlertPages",
@@ -142,8 +150,8 @@ export default {
         params: {
           page,
           name,
-          type_id,
-          type_name,
+          store_type_id,
+          store_id,
           date,
         },
       }).then((res) => {
@@ -165,7 +173,7 @@ export default {
       this.getDataList();
     },
     pageSearchResetEvent(e) {
-      this.searchFormData = {};
+      this.searchFormData = { searchStoreType: "", searchStore: "" };
       this.page_current = 1;
       this.getDataList();
     },
@@ -196,5 +204,4 @@ export default {
 };
 </script>
 <style>
-
 </style>

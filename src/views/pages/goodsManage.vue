@@ -12,7 +12,7 @@
       <div class="app-page-select">
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="物品编号：">
-            <el-input
+            <el-input  maxlength="30"
               v-model="searchFormData.searchNumber"
               class="input-with-select"
             ></el-input>

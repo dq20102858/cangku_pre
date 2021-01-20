@@ -8,6 +8,7 @@
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="物品名称：">
             <el-input
+              maxlength="30"
               v-model="searchFormData.searchName"
               class="input-with-select"
             ></el-input>
@@ -17,6 +18,7 @@
               v-model="searchFormData.searchStoreType"
               placeholder="请选择仓库类型"
             >
+              <el-option label="全部类型" value=""></el-option>
               <el-option
                 v-for="item in storeTypeList"
                 :key="item.id"
@@ -30,6 +32,7 @@
               v-model="searchFormData.searchStore"
               placeholder="请选择仓库名称"
             >
+              <el-option label="全部仓库" value=""></el-option>
               <el-option
                 v-for="item in storeList"
                 :key="item.id"
@@ -121,7 +124,10 @@
 export default {
   data() {
     return {
-      searchFormData: {},
+      searchFormData: {
+        searchStoreType: "",
+        searchStore: "",
+      },
       diaLogFormVisible: false,
       goodId: 0,
       formData: {},
@@ -186,7 +192,11 @@ export default {
       this.getDataList();
     },
     searchResetEvent() {
-      this.searchFormData = {};
+      this.searchFormData = {
+        searchStoreType: "",
+        searchStore: "",
+        searchName: "",
+      };
       this.page_current = 1;
       this.getDataList();
     },
@@ -214,7 +224,7 @@ export default {
     },
     editRecEvent(id) {
       this.diaLogFormVisible = true;
-      this.formData={};
+      this.formData = {};
       this.goodId = id;
     },
     addRecEvent() {

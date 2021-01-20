@@ -10,8 +10,8 @@
             <el-select
               v-model="searchFormData.searchStoreType"
               placeholder="选择仓库类型"
-              @change="searchStoreTypeChange($event)"
             >
+              <el-option label="全部类型" value=""></el-option>
               <el-option
                 v-for="item in storeTypeList"
                 :key="item.id"
@@ -25,6 +25,7 @@
               v-model="searchFormData.searchStore"
               placeholder="选择仓库名称"
             >
+              <el-option label="全部仓库" value=""></el-option>
               <el-option
                 v-for="item in storeList"
                 :key="item.id"
@@ -36,8 +37,9 @@
           <el-form-item class="el-form-item" label="出库人员：">
             <el-select
               v-model="searchFormData.searchUsers"
-              placeholder="选择仓库名称"
+              placeholder="选择出库人员："
             >
+              <el-option label="全部人员" value=""></el-option>
               <el-option
                 v-for="item in adminList"
                 :key="item.id"
@@ -114,33 +116,33 @@
       :close-on-click-modal="false"
       :visible.sync="diaLogFormVisible"
     >
-<el-card class="box-card">
-  <div  class="text item">
-    <div class="userinfo">
-        <p><span>出库人员：</span> {{ formData.user }}</p>
-        <p><span>仓库名称： </span>{{ formData.store }}</p>
-        <p><span>出库时间：</span> {{ formData.create_time }}</p>
-      </div>
-  </div>
-</el-card>
-<el-card class="box-card">
-  <div slot="header" class="clearfix">
-    <h3>物品明细</h3>
-  </div>
-  <div  class="text item">
-     <div class="app-table app-table-nowrap">
-        <el-table :data="formData.list" border stripe>
-          <el-table-column prop="number" label="物品编号"></el-table-column>
-          <el-table-column
-            prop="product_name"
-            label="物品名称"
-          ></el-table-column>
-          <el-table-column prop="num" label="数量"></el-table-column>
-          <el-table-column prop="unit" label="规格"></el-table-column>
-        </el-table>
-      </div>
-  </div>
-</el-card>
+      <el-card class="box-card">
+        <div class="text item">
+          <div class="userinfo">
+            <p><span>出库人员：</span> {{ formData.user }}</p>
+            <p><span>仓库名称： </span>{{ formData.store }}</p>
+            <p><span>出库时间：</span> {{ formData.create_time }}</p>
+          </div>
+        </div>
+      </el-card>
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <h3>物品明细</h3>
+        </div>
+        <div class="text item">
+          <div class="app-table app-table-nowrap">
+            <el-table :data="formData.list" border stripe>
+              <el-table-column prop="number" label="物品编号"></el-table-column>
+              <el-table-column
+                prop="product_name"
+                label="物品名称"
+              ></el-table-column>
+              <el-table-column prop="num" label="数量"></el-table-column>
+              <el-table-column prop="unit" label="规格"></el-table-column>
+            </el-table>
+          </div>
+        </div>
+      </el-card>
     </el-dialog>
   </div>
 </template>
@@ -149,8 +151,12 @@ export default {
   data() {
     return {
       diaLogFormVisible: false,
-      searchFormData: {},
-      formData:[],
+      searchFormData: {
+        searchStoreType: "",
+        searchStore: "",
+        searchUsers:""
+      },
+      formData: [],
       page_current: 1,
       page_total: 0,
       page_size: 20,
@@ -204,7 +210,11 @@ export default {
       this.getDataList();
     },
     pageSearchResetEvent() {
-      this.searchFormData = {};
+      this.searchFormData = {
+        searchStoreType: "",
+        searchStore: "",
+        searchUsers: "",
+      };
       this.page_current = 1;
       this.getDataList();
     },
@@ -240,7 +250,8 @@ export default {
           this.adminList = res.data;
         }
       });
-    },  editRecEvent(id) {
+    },
+    editRecEvent(id) {
       this.diaLogFormVisible = true;
       this.request({
         url: "/store/getLogDetail",

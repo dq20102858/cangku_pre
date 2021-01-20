@@ -8,6 +8,7 @@
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="物品名称：">
             <el-input
+              maxlength="30"
               v-model="searchFormData.searchName"
               class="input-with-select"
             ></el-input>
@@ -31,6 +32,7 @@
               v-model="searchFormData.searchStore"
               placeholder="选择仓库名称"
             >
+              <el-option label="全部仓库" value=""></el-option>
               <el-option
                 v-for="item in storeList"
                 :key="item.id"
@@ -97,7 +99,8 @@
           <el-table-column prop="num" label="出库数量"></el-table-column>
           <el-table-column prop="store" label="仓库名称"></el-table-column>
           <el-table-column prop="store_type" label="仓库类型"></el-table-column>
-          <el-table-column   width="160"
+          <el-table-column
+            width="160"
             prop="create_time"
             label="出库时间"
             sortable
@@ -124,7 +127,7 @@
 export default {
   data() {
     return {
-      searchFormData: { searchDateType: 1 },
+      searchFormData: { searchStore: "", searchDateType: 1 },
       page_current: 1,
       page_size: 20,
       page_total: 0,
@@ -179,8 +182,10 @@ export default {
       this.getDataList();
     },
     pageSearchResetEvent() {
-      this.searchFormData = {};
-      this.searchFormData.searchDateType = 1;
+      this.searchFormData = {
+        searchStore: "",
+        searchDateType: 1,
+      };
       this.page_current = 1;
       this.getDataList();
     },

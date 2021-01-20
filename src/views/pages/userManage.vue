@@ -8,6 +8,7 @@
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="人员姓名：">
             <el-input
+              maxlength="30"
               v-model="searchFormData.searchName"
               class="input-with-select"
             ></el-input>
@@ -18,6 +19,7 @@
               placeholder="请选择部门"
               @change="getDepartListsChange($event)"
             >
+              <el-option label="全部部门" value=""></el-option>
               <el-option
                 v-for="item in departListItem"
                 :key="item.id"
@@ -31,6 +33,7 @@
               v-model="searchFormData.searchPostId"
               placeholder="请选择职位"
             >
+              <el-option label="全部职位" value=""></el-option>
               <el-option
                 v-for="item in postListItem"
                 :key="item.id"
@@ -192,7 +195,10 @@ export default {
     return {
       diaLogFormVisible: false,
       diaLogTitle: "新增人员信息",
-      searchFormData: {},
+      searchFormData: {
+        searchDepartId: "",
+        searchPostId: "",
+      },
       formData: {},
       formRules: {
         name: [
@@ -298,12 +304,14 @@ export default {
       this.getDataList();
     },
     pageSearchResetEvent() {
-      this.searchFormData = {};
+      this.searchFormData = { searchDepartId: "", searchPostId: "" };
+      this.postListItem = [];
       this.page_current = 1;
       this.getDataList();
     },
     addShowDialog() {
       this.diaLogFormVisible = true;
+      this.diaLogTitle = "新增人员信息";
       this.$nextTick(() => {
         this.$refs["formRulesRef"].clearValidate();
       });
@@ -312,6 +320,9 @@ export default {
     editRecEvent(id) {
       this.diaLogTitle = "编辑人员信息";
       this.diaLogFormVisible = true;
+      this.$nextTick(() => {
+        this.$refs["formRulesRef"].clearValidate();
+      });
       this.getDepartLists();
       this.request({
         url: "/user/getAdminInfo",

@@ -10,8 +10,8 @@
             <el-select
               v-model="searchFormData.searchStoreType"
               placeholder="选择仓库类型"
-              @change="searchStoreTypeChange($event)"
-            >
+                         >
+            <el-option label="全部类型" value=""></el-option>
               <el-option
                 v-for="item in storeTypeList"
                 :key="item.id"
@@ -25,6 +25,7 @@
               v-model="searchFormData.searchStore"
               placeholder="选择仓库名称"
             >
+            <el-option label="全部仓库" value=""></el-option>
               <el-option
                 v-for="item in storeList"
                 :key="item.id"
@@ -38,6 +39,7 @@
               v-model="searchFormData.searchUsers"
               placeholder="选择仓库名称"
             >
+               <el-option label="全部人员" value=""></el-option>
               <el-option
                 v-for="item in adminList"
                 :key="item.id"
@@ -149,7 +151,11 @@ export default {
   data() {
     return {
       diaLogFormVisible: false,
-      searchFormData: {},
+      searchFormData: {
+        searchStoreType:"",
+        searchStore:"",
+        searchUsers:""
+      },
       formData: [],
       page_current: 1,
       page_total: 0,
@@ -204,7 +210,11 @@ export default {
       this.getDataList();
     },
     pageSearchResetEvent() {
-      this.searchFormData = {};
+      this.searchFormData = {
+         searchStoreType:"",
+        searchStore:"",
+        searchUsers:""
+      };
       this.page_current = 1;
       this.getDataList();
     },
