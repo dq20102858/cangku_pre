@@ -196,7 +196,5 @@ export default {
 };
 </script>
 <style>
-.dialog-alert .el-select {
-  width: 100%;
-}
+
 </style>
