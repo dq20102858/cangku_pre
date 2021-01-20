@@ -1,9 +1,8 @@
 <template>
-  <div class="app-alert-page">
+    <div class="app-page">
     <div class="el-search">
       <div class="prepend">库存告警</div>
     </div>
-    <div class="app-page">
       <div class="app-page-select">
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="物品名称：">
@@ -56,7 +55,6 @@
           </el-form-item>
         </el-form>
       </div>
-
       <div class="app-table app-table-nowrap">
         <el-table
           :data="dataList"
@@ -98,7 +96,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 <script>
 export default {

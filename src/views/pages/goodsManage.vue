@@ -1,5 +1,5 @@
 <template>
-  <div class="app-goods-page">
+    <div class="app-page">
     <div class="el-search">
       <div class="prepend">物品管理</div>
       <!-- <div class="item">
@@ -8,11 +8,11 @@
         <el-button slot="append" icon="el-icon-search"></el-button>
       </div> -->
     </div>
-    <div class="app-page">
       <div class="app-page-select">
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="物品编号：">
-            <el-input  maxlength="30"
+            <el-input
+              maxlength="30"
               v-model="searchFormData.searchNumber"
               class="input-with-select"
             ></el-input>
@@ -39,10 +39,10 @@
               scope.$index + (page_current - 1) * page_size + 1
             }}</template>
           </el-table-column>
-          <el-table-column prop="number" label="物品编号"></el-table-column>
-          <el-table-column prop="name" label="物品名称"></el-table-column>
+          <el-table-column prop="number" label="物品编号" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="name" label="物品名称" show-overflow-tooltip></el-table-column>
           <el-table-column prop="unit" label="物品规格"></el-table-column>
-          <el-table-column prop="remark" label="备注"></el-table-column>
+          <el-table-column prop="remark" label="备注" show-overflow-tooltip></el-table-column>
           <el-table-column label="操作" width="88">
             <template slot-scope="scope">
               <div class="app-operation">
@@ -77,7 +77,7 @@
         </div>
       </div>
       <el-dialog
-        width="550px"
+        width="600px"
         class="dialog-goods"
         :title="this.diaLogTitle"
         :close-on-click-modal="false"
@@ -99,22 +99,8 @@
           <el-form-item label="物品规格：" prop="unit">
             <el-input v-model="formData.unit" autocomplete="off"></el-input>
           </el-form-item>
-          <!-- <el-form-item label="所在仓库：" prop="store_id">
-            <el-select
-              v-model="formData.store_id"
-              placeholder="请选择所在仓库"
-              style="width: 100%"
-            >
-              <el-option
-                v-for="item in this.storeList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
-            </el-select>
-          </el-form-item> -->
           <el-form-item label="备注：" prop="remark">
-            <el-input v-model="formData.remark" type="textarea"></el-input>
+            <el-input v-model="formData.remark" type="textarea"  :rows="5"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -122,7 +108,6 @@
           <el-button type="primary" @click="addRecEvent">确 定</el-button>
         </div>
       </el-dialog>
-    </div>
   </div>
 </template>
 <script>
@@ -142,7 +127,7 @@ export default {
           },
           {
             pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,20}$/,
-            message: "请输入名称长度2-20个中英文数字组合",
+            message: "请输入名称长度2-20个中英文数字下划线组合",
             trigger: "blur",
           },
         ],
@@ -154,7 +139,7 @@ export default {
           },
           {
             pattern: /^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,20}$/,
-            message: "请输入名称长度2-20个中英文数字组合",
+            message: "请输入名称长度2-20个中英文数字下划线组合",
             trigger: "blur",
           },
         ],
@@ -165,8 +150,8 @@ export default {
             trigger: "blur",
           },
           {
-            pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5]{1,5}$/,
-            message: "请输入名称长度1-5个中英文数字组合",
+            pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5]{1,10}$/,
+            message: "请输入名称长度1-10个中英文数字下划线组合",
             trigger: "blur",
           },
         ],
@@ -180,7 +165,7 @@ export default {
         remark: [
           {
             pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5]{2,100}$/,
-            message: "请输入名称长度2-100个中英文数字组合",
+            message: "请输入名称长度2-100个中英文数字下划线组合",
             trigger: "blur",
           },
         ],
@@ -194,7 +179,6 @@ export default {
   },
   created() {
     this.getDataList();
-    this.getStoreLists();
   },
   methods: {
     getDataList() {
@@ -233,20 +217,9 @@ export default {
       this.page_current = 1;
       this.getDataList();
     },
-    getStoreLists() {
-      this.request({
-        url: "/store/getStoreLists",
-        method: "get",
-      }).then((response) => {
-        var res = response.data;
-        if (res.status == 1) {
-          this.storeList = res.data;
-        }
-      });
-    },
-
     addShowDialog() {
       this.diaLogFormVisible = true;
+      this.diaLogTitle = "新增物品";
       this.$nextTick(() => {
         this.$refs["formRulesRef"].clearValidate();
       });
@@ -254,6 +227,7 @@ export default {
     },
     editRecEvent(id) {
       this.diaLogFormVisible = true;
+      this.diaLogTitle = "编辑物品";
       this.$nextTick(() => {
         this.$refs["formRulesRef"].clearValidate();
       });
@@ -273,7 +247,7 @@ export default {
       this.$refs["formRulesRef"].validate((valid) => {
         if (valid) {
           let data = that.formData;
-           that.formData.store_id=0;
+          that.formData.store_id = 0;
           let url = "/product/addProduct";
           let baseid = this.formData.id;
           if (typeof baseid != "undefined") {
@@ -303,7 +277,7 @@ export default {
     delRecEvent(id) {
       this.$confirm("您确定要删除？删除后不可恢复！", "提示信息", {
         confirmButtonText: "确定",
-        showCancelButton: false,
+            cancelButtonText: "取消",
         type: "warning",
         customClass: "el-message-box-dev",
       })

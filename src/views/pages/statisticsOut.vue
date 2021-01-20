@@ -1,9 +1,8 @@
 <template>
-  <div class="app-set-page">
+    <div class="app-page">
     <div class="el-search">
       <div class="prepend">出库统计</div>
     </div>
-    <div class="app-page">
       <div class="app-page-select">
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="物品名称：">
@@ -121,7 +120,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 <script>
 export default {

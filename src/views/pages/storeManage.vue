@@ -1,9 +1,8 @@
 <template>
-  <div class="app-ware-page">
+   <div class="app-page">
     <div class="el-search">
       <div class="prepend">仓库管理</div>
     </div>
-    <div class="app-page">
       <div class="app-page-select">
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="仓库名称：">
@@ -94,9 +93,42 @@
           </el-pagination>
         </div>
       </div>
-
       <el-dialog
-        width="555px"
+        width="500px"
+        class="dialog-ware"
+        title="类型管理"
+        :close-on-click-modal="false"
+        :visible.sync="diaLogFormTypeVisible"
+      >
+        <el-button
+          type="primary"
+          @click="addStoreTypeEvent()"
+          style="margin-top: -15px; margin-bottom: 15px"
+          >新增</el-button
+        >
+        <div class="text item">
+          <div class="app-table app-table-nowrap">
+            <el-table :data="storeTypeList" border stripe>
+              <el-table-column prop="id" label="编号" width="80"></el-table-column>
+              <el-table-column prop="name" label="分类名称"></el-table-column>
+              <el-table-column label="操作" width="55">
+                <template slot-scope="scope">
+                  <div class="app-operation">
+                    <el-button
+                      class="btn-edit"
+                      @click="addStoreTypeEvent(scope.row.id)"
+                      title="编辑"
+                      ><i class="el-icon-edit-outline"></i
+                    ></el-button>
+                  </div>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
+        </div>
+      </el-dialog>
+      <el-dialog
+        width="600px"
         class="dialog-ware"
         :title="this.diaLogTitle"
         :close-on-click-modal="false"
@@ -113,7 +145,7 @@
             <el-input v-model="formData.name" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="仓库类型：" prop="type_id">
-            <el-col :span="19">
+            <el-col :span="20">
               <el-select
                 v-model="formData.type_id"
                 placeholder="请选择仓库类型"
@@ -129,7 +161,7 @@
             </el-col>
             <el-col :span="4">
               <el-button
-                style="margin-left: 15px"
+                style="margin-left: 12px"
                 type="primary"
                 @click="addStoreType"
                 >新增</el-button
@@ -137,7 +169,7 @@
             </el-col>
           </el-form-item>
           <el-form-item label="仓库位置：" prop="address_id">
-            <el-col :span="19">
+            <el-col :span="20">
               <el-select
                 v-model="formData.address_id"
                 placeholder="请选择仓库位置"
@@ -152,7 +184,7 @@
             </el-col>
             <el-col :span="4">
               <el-button
-                style="margin-left: 15px"
+                style="margin-left: 12px"
                 type="primary"
                 @click="addStoreAddress"
                 >新增</el-button
@@ -175,13 +207,13 @@
           <el-button type="primary" @click="addRecEvent">确 定</el-button>
         </div>
       </el-dialog>
-    </div>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      diaLogFormTypeVisible: false,
       diaLogFormVisible: false,
       diaLogTitle: "添加人员信息",
       searchFormData: { searchStoreType: "", searchStoreAddress: "" },
@@ -195,7 +227,7 @@ export default {
           },
           {
             pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,10}$/,
-            message: "请输入名称长度2-10个中英文数字组合",
+            message: "请输入名称长度2-10个中英文数字下划线组合",
             trigger: "blur",
           },
         ],
@@ -409,6 +441,9 @@ export default {
       });
     },
     addStoreType() {
+      this.diaLogFormTypeVisible = true;
+    },
+    addStoreTypeEvent() {
       this.$prompt("类型名称：", "新增仓库类型", {
         customClass: "el-message-box-new",
         closeOnClickModal: false,
@@ -416,7 +451,7 @@ export default {
         cancelButtonText: "取消",
         inputPlaceholder: "请输入仓库类型名称",
         inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,10}$/,
-        inputErrorMessage: "请输入名称长度2-10个中英文数字组合",
+        inputErrorMessage: "请输入名称长度2-10个中英文数字下划线组合",
       })
         .then(({ value }) => {
           this.request({
@@ -445,7 +480,7 @@ export default {
         cancelButtonText: "取消",
         inputPlaceholder: "请输入仓库位置",
         inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,10}$/,
-        inputErrorMessage: "请输入名称长度2-10个中英文数字组合",
+        inputErrorMessage: "请输入名称长度2-10个中英文数字下划线组合",
       })
         .then(({ value }) => {
           this.request({

@@ -35,13 +35,7 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss">
-.navbar {
-  position: relative;
-  height: 80px;
-  line-height: 80px;
-  border-radius: 0px !important;
-  background: #4887ff;
-}
+
 .hamburger-container {
   line-height: 58px;
   height: 60px;

@@ -1,8 +1,8 @@
 <template>
   <div class="app-container" :class="classObj">
+    <app-navbar class="app-container-navbar"></app-navbar>
     <app-sidebar class="app-container-sidebar"></app-sidebar>
     <div class="app-container-main">
-      <app-navbar></app-navbar>
       <app-main></app-main>
     </div>
   </div>
@@ -40,7 +40,42 @@ export default {
 };
 </script>
 <style>
-.app-container{height: 100%;min-width: 990px;}
-.app-container-sidebar{position:fixed;top:0;bottom:0;left:0;z-index:1001;overflow:hidden;width:200px!important;height:100%;font-size:0;transition:width .28s}
-.app-container-main {position: relative;min-height: 100%;transition: margin-left .28s;margin-left: 200px;}
+.app-container {
+  height: 100%;
+  min-width: 990px;
+}
+.app-container-navbar {
+  position: fixed;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 0px !important;
+  background: #4887ff;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+.app-container-sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1001;
+  overflow: hidden;
+  width: 200px !important;
+  height: 100%;
+  font-size: 0;
+  transition: width 0.28s;
+}
+.app-container-main {
+  position: fixed;
+  left: 200px;
+  top: 80px;
+  right: 0;
+  bottom: 0;
+  z-index: 998;
+  width: auto;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
 </style>

@@ -1,9 +1,8 @@
 <template>
-  <div class="app-user-page">
+    <div class="app-page">
     <div class="el-search">
       <div class="prepend">人员管理</div>
     </div>
-    <div class="app-page">
       <div class="app-page-select">
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="人员姓名：">
@@ -99,7 +98,7 @@
       </div>
 
       <el-dialog
-        width="500px"
+        width="600px"
         class="dialog-users"
         :title="this.diaLogTitle"
         :close-on-click-modal="false"
@@ -119,13 +118,13 @@
           <el-form-item
             label="登录密码："
             prop="password"
-            v-if="this.diaLogTitle == '新增人员信息'"
+            v-if="this.diaLogTitle == '新增人员'"
           >
             <el-input v-model="formData.password" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item
             label="登录密码："
-            v-if="this.diaLogTitle == '编辑人员信息'"
+            v-if="this.diaLogTitle == '编辑人员'"
           >
             <el-input
               v-model="formData.password"
@@ -187,14 +186,13 @@
         </div>
       </el-dialog>
     </div>
-  </div>
 </template>
 <script>
 export default {
   data() {
     return {
       diaLogFormVisible: false,
-      diaLogTitle: "新增人员信息",
+      diaLogTitle: "新增人员",
       searchFormData: {
         searchDepartId: "",
         searchPostId: "",
@@ -204,12 +202,12 @@ export default {
         name: [
           {
             required: true,
-            message: "请输入姓名",
+            message: "请输入人员姓名",
             trigger: "blur",
           },
           {
-            pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,10}$/,
-            message: "请输入名称长度2-10个中英文数字组合",
+            pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,20}$/,
+            message: "请输入名称长度2-20个中英文数字下划线组合",
             trigger: "blur",
           },
         ],
@@ -222,7 +220,25 @@ export default {
           {
             min: 2,
             max: 10,
-            message: "请输入姓名长度在2到20个字符",
+            message: "输入密码长度2到10个字符",
+            trigger: "blur",
+          },
+          {
+            pattern: /^[0-9a-zA-Z_]{1,}$/,
+            message: "输入密码只能是数字、字母、下划线",
+            trigger: "blur",
+          },
+        ],
+        passwordtwo: [
+          {
+            min: 2,
+            max: 10,
+            message: "输入密码长度2到10个字符",
+            trigger: "blur",
+          },
+          {
+            pattern: /^[0-9a-zA-Z_]{1,}$/,
+            message: "输入密码只能是数字、字母、下划线",
             trigger: "blur",
           },
         ],
@@ -311,14 +327,14 @@ export default {
     },
     addShowDialog() {
       this.diaLogFormVisible = true;
-      this.diaLogTitle = "新增人员信息";
+      this.diaLogTitle = "新增人员";
       this.$nextTick(() => {
         this.$refs["formRulesRef"].clearValidate();
       });
       this.formData = {};
     },
     editRecEvent(id) {
-      this.diaLogTitle = "编辑人员信息";
+      this.diaLogTitle = "编辑人员";
       this.diaLogFormVisible = true;
       this.$nextTick(() => {
         this.$refs["formRulesRef"].clearValidate();
@@ -442,7 +458,7 @@ export default {
         cancelButtonText: "取消",
         inputPlaceholder: "请输入部门名称",
         inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,10}$/,
-        inputErrorMessage: "请输入名称长度2-10个中英文数字组合",
+        inputErrorMessage: "请输入名称长度2-10个中英文数字下划线组合",
       })
         .then(({ value }) => {
           this.request({
@@ -475,7 +491,7 @@ export default {
           cancelButtonText: "取消",
           inputPlaceholder: "请输入职位名称",
           inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,10}$/,
-          inputErrorMessage: "请输入名称长度2-10个中英文数字组合",
+          inputErrorMessage: "请输入名称长度2-10个中英文数字下划线组合",
         })
           .then(({ value }) => {
             this.request({

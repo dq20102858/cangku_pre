@@ -1,9 +1,9 @@
 <template>
-  <div class="app-set-page">
+    <div class="app-page">
     <div class="el-search">
       <div class="prepend">出库管理</div>
     </div>
-    <div class="app-page">
+
       <div class="app-page-select">
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="仓库类型：">
@@ -108,7 +108,6 @@
           </el-pagination>
         </div>
       </div>
-    </div>
     <el-dialog
       width="680px"
       class="dialog-listinto"
