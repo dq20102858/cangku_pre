@@ -214,6 +214,7 @@ export default {
     },
     editRecEvent(id) {
       this.diaLogFormVisible = true;
+      this.formData={};
       this.goodId = id;
     },
     addRecEvent() {
@@ -233,7 +234,7 @@ export default {
               this.getDataList();
               this.$message({
                 type: "success",
-                message: "保存成功！",
+                message: "设置成功！",
               });
             }
           });
