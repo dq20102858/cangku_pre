@@ -63,9 +63,9 @@
           ></el-table-column>
           <el-table-column prop="unit" label="物品规格"></el-table-column>
           <el-table-column prop="stock" label="物品数量"></el-table-column>
-          <el-table-column prop="store" label="仓库名称"></el-table-column> 
+          <el-table-column prop="store" label="仓库名称"></el-table-column>
           <el-table-column prop="alert_num" label="告警数量"></el-table-column>
-            <el-table-column label="告警设置" width="80">
+          <el-table-column label="告警设置" width="80">
             <template slot-scope="scope">
               <div class="app-operation">
                 <el-button
@@ -92,52 +92,29 @@
         </div>
       </div>
     </div>
-       <el-dialog
-        width="555px"
-        class="dialog-list"
-        title="告警设置"
-        :close-on-click-modal="false"
-        :visible.sync="diaLogFormVisible"
+    <el-dialog
+      width="400px"
+      class="dialog-list"
+      title="告警设置"
+      :close-on-click-modal="false"
+      :visible.sync="diaLogFormVisible"
+    >
+      <el-form
+        :model="formData"
+        class="el-form-custom"
+        :rules="formRules"
+        ref="formRulesRef"
+        label-width="110px"
       >
-        <el-form
-          :model="formData"
-          class="el-form-custom"
-          :rules="formRules"
-          ref="formRulesRef"
-          label-width="110px"
-        >
-          <el-form-item label="物品名称：">
-            <el-input
-              v-model="formData.product"
-              autocomplete="off"
-              readonly
-              disabled
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="仓库名称：">
-            <el-select v-model="formData.store_id">
-              <el-option
-                v-for="item in storeList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="当前库存：">
-            <el-input v-model="formData.stock" readonly disabled>
-              <template slot="append">{{ formData.unit }}</template>
-            </el-input>
-          </el-form-item>
-          <el-form-item label="告警数量：" prop="num">
-            <el-input v-model="formData.num" autocomplete="off"></el-input>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="diaLogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="addRecEvent">确 定</el-button>
-        </div>
-      </el-dialog>
+        <el-form-item label="告警数量：" prop="alert_num">
+          <el-input v-model="formData.alert_num" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="diaLogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addRecEvent">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -146,9 +123,10 @@ export default {
     return {
       searchFormData: {},
       diaLogFormVisible: false,
+      goodId: 0,
       formData: {},
       formRules: {
-        num: [
+        alert_num: [
           {
             required: true,
             message: "请输入告警数量",
@@ -233,33 +211,21 @@ export default {
           this.storeTypeList = res.data;
         }
       });
-    },    editRecEvent(id) {
+    },
+    editRecEvent(id) {
       this.diaLogFormVisible = true;
-      this.request({
-        url: "/store/getAlertInfo",
-        method: "get",
-        params: { id: id },
-      }).then((res) => {
-        let data = res.data;
-        if (data.status == 1) {
-          this.formData = data.data;
-        }
-      });
-    },   addRecEvent() {
+      this.goodId = id;
+    },
+    addRecEvent() {
       const that = this;
       this.$refs["formRulesRef"].validate((valid) => {
         if (valid) {
-          let data = that.formData;
-          let name = that.formData.name;
-          let store_id = that.formData.store_id;
-          let product_id = that.formData.product_id;
-          let num = that.formData.num;
-          let id = that.formData.id;
-          let url = "/store/editAlert";
+          let id = this.goodId;
+          let alert_num = that.formData.alert_num;
           this.request({
-            url: url,
+            url: "/product/editStoreList",
             method: "post",
-            data: { id, name, store_id, product_id, num },
+            data: { id, alert_num },
           }).then((response) => {
             var data = response.data;
             if (data.status == 1) {
@@ -281,7 +247,8 @@ export default {
   },
 };
 </script>
-<style>.dialog-list .el-select {
+<style>
+.dialog-list .el-select {
   width: 100%;
 }
 </style>
