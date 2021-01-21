@@ -7,7 +7,7 @@
       <el-form :inline="true">
         <el-form-item class="el-form-item" label="物品名称：">
           <el-input
-            maxlength="30"
+             maxlength="20"
             v-model="searchFormData.searchName"
             class="input-with-select"
           ></el-input>

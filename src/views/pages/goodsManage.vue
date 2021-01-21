@@ -12,13 +12,13 @@
       <el-form :inline="true">
         <el-form-item class="el-form-item" label="物品编号：">
           <el-input
-            maxlength="30"
+            maxlength="20"
             v-model="searchFormData.searchNumber"
             class="input-with-select"
           ></el-input>
         </el-form-item>
         <el-form-item class="el-form-item" label="物品名称：">
-          <el-input
+          <el-input   maxlength="20"
             v-model="searchFormData.searchName"
             class="input-with-select"
           ></el-input>

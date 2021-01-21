@@ -7,7 +7,7 @@
         <el-form :inline="true">
           <el-form-item class="el-form-item" label="物品名称：">
             <el-input
-              maxlength="30"
+               maxlength="20"
               v-model="searchFormData.searchName"
               class="input-with-select"
             ></el-input>
@@ -110,12 +110,12 @@ export default {
         num: [
           {
             required: true,
-            message: "请输入数字长度1-10个数字",
+            message: "请输入数字长度1-8位数字",
             trigger: "blur",
           },
           {
-            pattern: /^[0-9]{1,10}$/,
-            message: "请输入数字长度1-10个数字",
+            pattern: /^[0-9]{1,8}$/,
+            message: "请输入数字长度1-8位数字",
             trigger: "blur",
           },
         ],
