@@ -7,7 +7,7 @@
       <el-form :inline="true">
         <el-form-item class="el-form-item" label="人员姓名：">
           <el-input
-             maxlength="20"
+            maxlength="20"
             v-model="searchFormData.searchName"
             class="input-with-select"
           ></el-input>
@@ -97,7 +97,7 @@
       </div>
     </div>
     <el-dialog
-      width="600px"
+      width="500px"
       class="dialog-depart"
       title="部门管理"
       :close-on-click-modal="false"
@@ -114,34 +114,10 @@
       >
       <div class="text item">
         <div class="app-table app-table-nowrap">
-          <!-- <el-table
-            :data="tableData" height="550"
-            row-key="id"
-            border
-            default-expand-all
-            :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-          >
-            <el-table-column prop="name" label="名称" >
-            </el-table-column>
-            </el-table-column><el-table-column label="操作" width="55">
-              <template slot-scope="scope">
-                <div class="app-operation">
-                  <el-button
-                    class="btn-edit"
-                    @click="editStoreTypeEvent(scope.row.id, scope.row.name)"
-                    title="编辑"
-                    ><i class="el-icon-edit-outline"></i
-                  ></el-button>
-                </div>
-              </template>
-            </el-table-column>
-          </el-table> -->
           <el-table :data="departListItem" border stripe>
-            <el-table-column
-              prop="id"
-              label="编号"
-              width="80"
-            ></el-table-column>
+            <el-table-column label="序号" width="80px">
+              <template slot-scope="scope">{{ scope.$index + 1 }}</template>
+            </el-table-column>
             <el-table-column prop="name" label="部门名称"></el-table-column>
             <el-table-column label="操作" width="55">
               <template slot-scope="scope">
@@ -160,7 +136,7 @@
       </div>
     </el-dialog>
     <el-dialog
-      width="600px"
+      width="500px"
       class="dialog-post"
       title="职位管理"
       :close-on-click-modal="false"
@@ -178,11 +154,9 @@
       <div class="text item">
         <div class="app-table app-table-nowrap">
           <el-table :data="postListItem" border stripe>
-            <el-table-column
-              prop="id"
-              label="编号"
-              width="80"
-            ></el-table-column>
+            <el-table-column label="序号" width="80px">
+              <template slot-scope="scope">{{ scope.$index + 1 }}</template>
+            </el-table-column>
             <el-table-column prop="name" label="职位名称"></el-table-column>
             <el-table-column label="操作" width="55">
               <template slot-scope="scope">
@@ -430,7 +404,7 @@ export default {
         this.$refs["formRulesRef"].clearValidate();
       });
       this.formData = {};
-      this.postListItem=[];
+      this.postListItem = [];
     },
     editRecEvent(id) {
       this.diaLogTitle = "编辑人员";
@@ -461,7 +435,7 @@ export default {
           let baseid = this.formData.id;
           if (typeof baseid != "undefined") {
             url = "/user/editAdmin";
-          } 
+          }
           that.formData.username = that.formData.name;
           this.request({
             url: url,
@@ -536,9 +510,9 @@ export default {
       this.getPostLists(val);
     },
     getPostLists(pid) {
-     if(pid==""){
-       pid=-1;
-     }
+      if (pid == "") {
+        pid = -1;
+      }
       this.request({
         url: "/user/getDepartLists",
         method: "get",
@@ -588,8 +562,7 @@ export default {
         cancelButtonText: "取消",
         inputPlaceholder: "请输入部门名称",
         inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,10}$/,
-        inputErrorMessage:
-          "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+        inputErrorMessage: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
       })
         .then(({ value }) => {
           this.request({
@@ -619,8 +592,7 @@ export default {
         inputPlaceholder: "请输入部门名称",
         inputValue: name,
         inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,10}$/,
-        inputErrorMessage:
-          "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+        inputErrorMessage: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
       })
         .then(({ value }) => {
           this.request({
