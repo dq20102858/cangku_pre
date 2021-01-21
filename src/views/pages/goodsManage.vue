@@ -103,11 +103,12 @@
         ref="formRulesRef"
         label-width="110px"
       >
-        <el-form-item label="物品名称：" prop="name">
-          <el-input v-model="formData.name" autocomplete="off"></el-input>
-        </el-form-item>
         <el-form-item label="物品编号：" prop="number">
-          <el-input v-model="formData.number" autocomplete="off"></el-input>
+          <el-input v-model="formData.number" autocomplete="off" v-if="formData.id>0" disabled></el-input>
+          <el-input v-else v-model="formData.number" autocomplete="off"></el-input>
+        </el-form-item>
+           <el-form-item label="物品名称：" prop="name">
+          <el-input v-model="formData.name" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="物品规格：" prop="unit">
           <el-input v-model="formData.unit" autocomplete="off"></el-input>
