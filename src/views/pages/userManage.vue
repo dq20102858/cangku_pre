@@ -618,9 +618,7 @@ export default {
           let baseid = this.formData.id;
           if (typeof baseid != "undefined") {
             url = "/user/editAdmin";
-          } else {
-            that.formData.password = "123456";
-          }
+          } 
           that.formData.username = that.formData.name;
           this.request({
             url: url,
