@@ -51,11 +51,6 @@
     </div>
     <div class="app-page-addbtn">
       <el-button type="warning" @click="addRecDialog">新增</el-button>
-      <span class="rightadd">
-        <el-button type="primary" plain @click="addDepartShow"
-          >部门管理</el-button
-        >
-      </span>
     </div>
     <div class="app-table app-table-nowrap">
       <el-table :data="dataList" border stripe>
