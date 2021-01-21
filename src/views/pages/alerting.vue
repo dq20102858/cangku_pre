@@ -60,7 +60,6 @@
           :data="dataList"
           border
           stripe
-          :default-sort="{ prop: 'create_time' }"
         >
           <el-table-column label="序号" width="80px">
             <template slot-scope="scope">{{
@@ -78,7 +77,6 @@
           <el-table-column
             prop="create_time"
             label="告警时间"
-            sortable
           ></el-table-column>
         </el-table>
         <div class="app-pagination">

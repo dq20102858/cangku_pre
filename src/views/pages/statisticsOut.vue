@@ -78,12 +78,7 @@
     </div>
 
     <div class="app-table app-table-nowrap">
-      <el-table
-        :data="dataList"
-        border
-        stripe
-        :default-sort="{ prop: 'create_time' }"
-      >
+      <el-table :data="dataList" border stripe>
         <el-table-column label="序号" width="80px">
           <template slot-scope="scope">{{
             scope.$index + (page_current - 1) * page_size + 1
@@ -99,7 +94,6 @@
           width="160"
           prop="create_time"
           label="出库时间"
-          sortable
         ></el-table-column>
       </el-table>
       <div class="app-pagination" v-if="dataList.length !== 0">
@@ -122,7 +116,11 @@
 export default {
   data() {
     return {
-      searchFormData: { searchStoreType:"",searchStore: "", searchDateType: 1 },
+      searchFormData: {
+        searchStoreType: "",
+        searchStore: "",
+        searchDateType: 1,
+      },
       page_current: 1,
       page_size: 20,
       page_total: 0,
@@ -179,7 +177,7 @@ export default {
     pageSearchResetEvent() {
       this.searchFormData = {
         searchStore: "",
-        searchStoreType:"",
+        searchStoreType: "",
         searchDateType: 1,
       };
       this.page_current = 1;

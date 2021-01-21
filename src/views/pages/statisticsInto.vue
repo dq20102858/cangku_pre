@@ -81,7 +81,6 @@
         :data="dataList"
         border
         stripe
-        :default-sort="{ prop: 'create_time' }"
       >
         <el-table-column label="序号" width="80px">
           <template slot-scope="scope">{{
@@ -98,7 +97,6 @@
           width="160"
           prop="create_time"
           label="入库时间"
-          sortable
         ></el-table-column>
       </el-table>
       <div class="app-pagination" v-if="dataList.length !== 0">

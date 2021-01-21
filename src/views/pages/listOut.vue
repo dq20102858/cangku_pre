@@ -67,7 +67,6 @@
           :data="dataList"
           border
           stripe
-          :default-sort="{ prop: 'create_time' }"
         >
           <el-table-column label="序号" width="80px">
             <template slot-scope="scope">{{
@@ -77,7 +76,6 @@
           <el-table-column
             prop="create_time"
             label="出库时间"
-            sortable
           ></el-table-column>
           <el-table-column prop="manager" label="出库人员"></el-table-column>
           <el-table-column prop="depart" label="所属部门"></el-table-column>

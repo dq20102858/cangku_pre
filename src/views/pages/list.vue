@@ -51,7 +51,6 @@
         :data="dataList"
         border
         stripe
-        :default-sort="{ prop: 'create_time' }"
       >
         <el-table-column label="序号" width="80px">
           <template slot-scope="scope">{{

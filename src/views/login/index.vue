@@ -157,27 +157,28 @@ export default {
 .login-container .el-form-item {
   margin-bottom: 30px;
 }
-.login-container .el-input-group__prepend {
+.login-container .el-input-group {
   border: 1px #4887fc solid;
+  border-radius: 3px;
+}
+.login-container .el-input-group__prepend {
+  border: none;
   background: #fff;
   padding: 0 5px;
-  border-right: 0;
 }
 .login-container .el-input-group__prepend img {
   width: 32px;
 }
-.login-container .is-error .el-input-group__prepend {
+.login-container .is-error .el-input-group {
   border: 1px #f56c6c solid;
-  border-right: 0;
 }
 .login-container .el-input__inner {
   background: #fff !important;
   border: 6px;
   padding: 0 5px 0 1px;
   color: #4887fc;
-  height: 45px;
-  border: 1px #4887fc solid;
-  border-left: 0;
+  height: 40px;
+  border: none;
 }
 .login-container input:-webkit-autofill {
   box-shadow: 0 0 0px 1000px white inset !important;
