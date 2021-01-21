@@ -430,6 +430,7 @@ export default {
         this.$refs["formRulesRef"].clearValidate();
       });
       this.formData = {};
+      this.postListItem=[];
     },
     editRecEvent(id) {
       this.diaLogTitle = "编辑人员";
