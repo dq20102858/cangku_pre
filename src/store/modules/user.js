@@ -52,6 +52,7 @@ const user = {
           if (response.data.status) {
             const data = response.data.data
             commit('SET_TOKEN', data.token)
+            commit('SET_NAME', data.name)
             setToken(data.token)
             setSystem(1)
             resolve()
