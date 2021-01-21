@@ -294,159 +294,6 @@
 export default {
   data() {
     return {
-      tableData: [
-        {
-          id: 3,
-          name: "王小虎",
-          type: "部门",
-          children: [
-            {
-              id: 31,
-              name: "王小虎",
-              type: "职位",
-            },
-            {
-              id: 32,
-              name: "王小虎",
-              type: "职位",
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: "王小虎",
-          type: "部门",
-          children: [
-            {
-              id: 31,
-              name: "王小虎",
-              type: "职位",
-            },
-            {
-              id: 32,
-              name: "王小虎",
-              type: "职位",
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: "王小虎",
-          type: "部门",
-          children: [
-            {
-              id: 31,
-              name: "王小虎",
-              type: "职位",
-            },
-            {
-              id: 32,
-              name: "王小虎",
-              type: "职位",
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: "王小虎",
-          type: "部门",
-          children: [
-            {
-              id: 31,
-              name: "王小虎",
-              type: "职位",
-            },
-            {
-              id: 32,
-              name: "王小虎",
-              type: "职位",
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: "王小虎",
-          type: "部门",
-          children: [
-            {
-              id: 31,
-              name: "王小虎",
-              type: "职位",
-            },
-            {
-              id: 32,
-              name: "王小虎",
-              type: "职位",
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: "王小虎",
-          type: "部门",
-          children: [
-            {
-              id: 31,
-              name: "王小虎",
-              type: "职位",
-            },
-            {
-              id: 32,
-              name: "王小虎",
-              type: "职位",
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: "王小虎",
-          type: "部门",
-          children: [
-            {
-              id: 31,
-              name: "王小虎",
-              type: "职位",
-            },
-            {
-              id: 32,
-              name: "王小虎",
-              type: "职位",
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: "王小虎",
-          type: "部门",
-          children: [
-            {
-              id: 31,
-              name: "王小虎",
-              type: "职位",
-            },
-            {
-              id: 32,
-              name: "王小虎",
-              type: "职位",
-            },
-          ],
-        },
-        {
-          id: 4,
-          name: "王小虎",
-          type: "部门",
-          children: [
-            {
-              id: 31,
-              name: "王小虎",
-            },
-            {
-              id: 32,
-              name: "王小虎",
-            },
-          ],
-        },
-      ],
       diaLogFormVisible: false,
       diaLogFormDepartVisible: false,
       diaLogFormPostVisible: false,
@@ -688,6 +535,9 @@ export default {
       this.getPostLists(val);
     },
     getPostLists(pid) {
+     if(pid==""){
+       pid=-1;
+     }
       this.request({
         url: "/user/getDepartLists",
         method: "get",
