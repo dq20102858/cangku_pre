@@ -111,7 +111,8 @@
       width="680px"
       class="dialog-listinto"
       title="入库详情"
-      :close-on-click-modal="false"
+        :append-to-body="true"
+      :lock-scroll="false"
       :visible.sync="diaLogFormVisible"
     >
       <el-card class="box-card">
