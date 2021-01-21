@@ -838,7 +838,7 @@ export default {
       if (typeof departid == "undefined") {
         this.$message.error("请选择所属部门");
       } else {
-        this.$prompt("职位名称：", "新增职位", {
+        this.$prompt("职位名称：", "编辑职位", {
           customClass: "el-message-box-new",
           confirmButtonText: "确定",
           cancelButtonText: "取消",

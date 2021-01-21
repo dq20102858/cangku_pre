@@ -164,7 +164,7 @@
               label="编号"
               width="80"
             ></el-table-column>
-            <el-table-column prop="name" label="地址"></el-table-column>
+            <el-table-column prop="name" label="位置"></el-table-column>
             <el-table-column label="操作" width="55">
               <template slot-scope="scope">
                 <div class="app-operation">
