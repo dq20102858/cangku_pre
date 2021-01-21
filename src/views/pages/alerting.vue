@@ -111,12 +111,12 @@ export default {
         num: [
           {
             required: true,
-            message: "请输入告警数量",
+            message: "请输入数字长度1-10个数字",
             trigger: "blur",
           },
           {
             pattern: /^[0-9]{1,10}$/,
-            message: "请输入告警数量长度1-10个数字",
+            message: "请输入数字长度1-10个数字",
             trigger: "blur",
           },
         ],

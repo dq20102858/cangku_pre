@@ -1,219 +1,273 @@
 <template>
-   <div class="app-page">
+  <div class="app-page">
     <div class="el-search">
       <div class="prepend">仓库管理</div>
     </div>
-      <div class="app-page-select">
-        <el-form :inline="true">
-          <el-form-item class="el-form-item" label="仓库名称：">
-            <el-input
-              maxlength="30"
-              v-model="searchFormData.searchName"
-              class="input-with-select"
-            ></el-input>
-          </el-form-item>
-          <el-form-item class="el-form-item" label="仓库类型：">
-            <el-select
-              v-model="searchFormData.searchStoreType"
-              placeholder="请选择仓库类型"
-            >
-              <el-option label="全部类型" value=""></el-option>
+    <div class="app-page-select">
+      <el-form :inline="true">
+        <el-form-item class="el-form-item" label="仓库名称：">
+          <el-input
+            maxlength="30"
+            v-model="searchFormData.searchName"
+            class="input-with-select"
+          ></el-input>
+        </el-form-item>
+        <el-form-item class="el-form-item" label="仓库类型：">
+          <el-select
+            v-model="searchFormData.searchStoreType"
+            placeholder="请选择仓库类型"
+          >
+            <el-option label="全部类型" value=""></el-option>
+            <el-option
+              v-for="item in storeTypeList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="el-form-item" label="仓库位置：">
+          <el-select
+            v-model="searchFormData.searchStoreAddress"
+            placeholder="请选择仓库位置"
+          >
+            <el-option label="全部位置" value=""></el-option>
+            <el-option
+              v-for="item in addressList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="el-form-item">
+          <el-button type="primary" @click="pageSearchEvent">查询</el-button>
+          <el-button @click="pageSearchResetEvent">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div class="app-page-addbtn">
+      <el-button type="warning" @click="addShowDialog">新增</el-button>
+      <!-- <span class="rightadd">
+        <el-button type="primary" plain @click="addStoreType"
+          >仓库类型管理</el-button
+        >
+        <el-button type="primary" plain @click="addStoreAddress"
+          >仓库位置管理</el-button
+        >
+      </span> -->
+    </div>
+    <div class="app-table app-table-nowrap">
+      <el-table :data="dataList" border stripe>
+        <el-table-column label="序号" width="80px">
+          <template slot-scope="scope">{{
+            scope.$index + (page_current - 1) * page_size + 1
+          }}</template>
+        </el-table-column>
+        <el-table-column prop="name" label="仓库名称"></el-table-column>
+        <el-table-column prop="store_type" label="仓库类型"></el-table-column>
+        <el-table-column prop="manager" label="责任人"></el-table-column>
+        <el-table-column prop="address" label="仓库位置"></el-table-column>
+        <el-table-column label="操作" width="88">
+          <template slot-scope="scope">
+            <div class="app-operation">
+              <el-button
+                class="btn-edit"
+                @click="editRecEvent(scope.row.id)"
+                title="编辑"
+                ><i class="el-icon-edit-outline"></i
+              ></el-button>
+              <el-button
+                class="btn-del"
+                @click="delRecEvent(scope.row.id)"
+                title="删除"
+                ><i class="el-icon-delete"></i
+              ></el-button>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="app-pagination">
+        <el-pagination
+          background
+          prev-text="上一页"
+          next-text="下一页"
+          layout="total,  prev, pager, next,  jumper"
+          :current-page="this.page_current"
+          :page-size="this.page_size"
+          :total="this.page_total"
+          @current-change="pageChange"
+        >
+        </el-pagination>
+      </div>
+    </div>
+    <el-dialog
+      width="600px"
+      class="dialog-ware"
+      title="仓库类型管理"
+      :close-on-click-modal="false"
+      :append-to-body="true"
+      :visible.sync="diaLogFormStoreTypeVisible"
+    >
+      <el-button
+        type="warning"
+        plain
+        @click="addStoreTypeEvent()"
+        style="margin-top: -15px; margin-bottom: 15px"
+        >新增类型</el-button
+      >
+      <div class="text item">
+        <div class="app-table app-table-nowrap">
+          <el-table :data="storeTypeList" border stripe>
+            <el-table-column
+              prop="id"
+              label="编号"
+              width="80"
+            ></el-table-column>
+            <el-table-column prop="name" label="分类名称"></el-table-column>
+            <el-table-column label="操作" width="55">
+              <template slot-scope="scope">
+                <div class="app-operation">
+                  <el-button
+                    class="btn-edit"
+                    @click="editStoreTypeEvent(scope.row.id, scope.row.name)"
+                    title="编辑"
+                    ><i class="el-icon-edit-outline"></i
+                  ></el-button>
+                </div>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </div>
+    </el-dialog>
+    <el-dialog
+      width="600px"
+      class="dialog-ware"
+      title="仓库位置管理"
+      :close-on-click-modal="false"
+      :append-to-body="true"
+      :visible.sync="diaLogFormStoreAddressVisible"
+    >
+      <el-button
+        type="warning"
+        plain
+        @click="addStoreAddressEvent()"
+        style="margin-top: -15px; margin-bottom: 15px"
+        >新增位置</el-button
+      >
+      <div class="text item">
+        <div class="app-table app-table-nowrap">
+          <el-table :data="addressList" border stripe>
+            <el-table-column
+              prop="id"
+              label="编号"
+              width="80"
+            ></el-table-column>
+            <el-table-column prop="name" label="地址"></el-table-column>
+            <el-table-column label="操作" width="55">
+              <template slot-scope="scope">
+                <div class="app-operation">
+                  <el-button
+                    class="btn-edit"
+                    @click="editStoreAddressEvent(scope.row.id, scope.row.name)"
+                    title="编辑"
+                    ><i class="el-icon-edit-outline"></i
+                  ></el-button>
+                </div>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+      </div>
+    </el-dialog>
+    <el-dialog
+      width="600px"
+      class="dialog-ware"
+      :title="this.diaLogTitle"
+      :close-on-click-modal="false"
+      :append-to-body="true"
+      :visible.sync="diaLogFormVisible"
+    >
+      <el-form
+        :model="formData"
+        class="el-form-custom"
+        :rules="formRules"
+        ref="formRulesRef"
+        label-width="110px"
+      >
+        <el-form-item label="仓库名称：" prop="name">
+          <el-input v-model="formData.name" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="仓库类型：" prop="type_id">
+          <el-col :span="20">
+            <el-select v-model="formData.type_id" placeholder="请选择仓库类型">
               <el-option
-                v-for="item in storeTypeList"
+                v-for="item in this.storeTypeList"
                 :key="item.id"
                 :label="item.name"
                 :value="item.id"
               ></el-option>
             </el-select>
-          </el-form-item>
-          <el-form-item class="el-form-item" label="仓库位置：">
+          </el-col>
+          <el-col :span="4">
+            <el-button
+              style="margin-left: 16px"
+              type="primary"
+              icon="el-icon-plus"
+              @click="addStoreType"
+              plain
+            ></el-button>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="仓库位置：" prop="address_id">
+          <el-col :span="20">
             <el-select
-              v-model="searchFormData.searchStoreAddress"
+              v-model="formData.address_id"
               placeholder="请选择仓库位置"
             >
-              <el-option label="全部位置" value=""></el-option>
               <el-option
-                v-for="item in addressList"
+                v-for="item in this.addressList"
                 :key="item.id"
                 :label="item.name"
                 :value="item.id"
               ></el-option>
             </el-select>
-          </el-form-item>
-          <el-form-item class="el-form-item">
-            <el-button type="primary" @click="pageSearchEvent">查询</el-button>
-            <el-button @click="pageSearchResetEvent">重置</el-button>
-          </el-form-item>
-        </el-form>
+          </el-col>
+          <el-col :span="4">
+            <el-button
+              style="margin-left: 16px"
+              type="primary"
+              plain
+              @click="addStoreAddress"
+              icon="el-icon-plus"
+            ></el-button>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="责任人：" prop="user_id">
+          <el-select v-model="formData.user_id" placeholder="请选择责任人">
+            <el-option
+              v-for="item in this.adminList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="diaLogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addRecEvent">确 定</el-button>
       </div>
-      <div class="app-page-addbtn">
-        <el-button type="warning" @click="addShowDialog">新增</el-button>
-      </div>
-      <div class="app-table app-table-nowrap">
-        <el-table :data="dataList" border stripe>
-          <el-table-column label="序号" width="80px">
-            <template slot-scope="scope">{{
-              scope.$index + (page_current - 1) * page_size + 1
-            }}</template>
-          </el-table-column>
-          <el-table-column prop="name" label="仓库名称"></el-table-column>
-          <el-table-column prop="store_type" label="仓库类型"></el-table-column>
-          <el-table-column prop="manager" label="责任人"></el-table-column>
-          <el-table-column prop="address" label="仓库位置"></el-table-column>
-          <el-table-column label="操作" width="88">
-            <template slot-scope="scope">
-              <div class="app-operation">
-                <el-button
-                  class="btn-edit"
-                  @click="editRecEvent(scope.row.id)"
-                  title="编辑"
-                  ><i class="el-icon-edit-outline"></i
-                ></el-button>
-                <el-button
-                  class="btn-del"
-                  @click="delRecEvent(scope.row.id)"
-                  title="删除"
-                  ><i class="el-icon-delete"></i
-                ></el-button>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="app-pagination">
-          <el-pagination
-            background
-            prev-text="上一页"
-            next-text="下一页"
-            layout="total,  prev, pager, next,  jumper"
-            :current-page="this.page_current"
-            :page-size="this.page_size"
-            :total="this.page_total"
-            @current-change="pageChange"
-          >
-          </el-pagination>
-        </div>
-      </div>
-      <el-dialog
-        width="500px"
-        class="dialog-ware"
-        title="类型管理"
-        :close-on-click-modal="false"
-        :visible.sync="diaLogFormTypeVisible"
-      >
-        <el-button
-          type="primary"
-          @click="addStoreTypeEvent()"
-          style="margin-top: -15px; margin-bottom: 15px"
-          >新增</el-button
-        >
-        <div class="text item">
-          <div class="app-table app-table-nowrap">
-            <el-table :data="storeTypeList" border stripe>
-              <el-table-column prop="id" label="编号" width="80"></el-table-column>
-              <el-table-column prop="name" label="分类名称"></el-table-column>
-              <el-table-column label="操作" width="55">
-                <template slot-scope="scope">
-                  <div class="app-operation">
-                    <el-button
-                      class="btn-edit"
-                      @click="addStoreTypeEvent(scope.row.id)"
-                      title="编辑"
-                      ><i class="el-icon-edit-outline"></i
-                    ></el-button>
-                  </div>
-                </template>
-              </el-table-column>
-            </el-table>
-          </div>
-        </div>
-      </el-dialog>
-      <el-dialog
-        width="600px"
-        class="dialog-ware"
-        :title="this.diaLogTitle"
-        :close-on-click-modal="false"
-        :visible.sync="diaLogFormVisible"
-      >
-        <el-form
-          :model="formData"
-          class="el-form-custom"
-          :rules="formRules"
-          ref="formRulesRef"
-          label-width="110px"
-        >
-          <el-form-item label="仓库名称：" prop="name">
-            <el-input v-model="formData.name" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="仓库类型：" prop="type_id">
-            <el-col :span="20">
-              <el-select
-                v-model="formData.type_id"
-                placeholder="请选择仓库类型"
-              >
-                <el-option
-                  v-for="item in this.storeTypeList"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id"
-                ></el-option>
-                <!-- <el-option v-for="item in this.storeTypeList" :key="item.id" :label="item.name" :value="item.id"></el-option> -->
-              </el-select>
-            </el-col>
-            <el-col :span="4">
-              <el-button
-                style="margin-left: 12px"
-                type="primary"
-                @click="addStoreType"
-                >新增</el-button
-              >
-            </el-col>
-          </el-form-item>
-          <el-form-item label="仓库位置：" prop="address_id">
-            <el-col :span="20">
-              <el-select
-                v-model="formData.address_id"
-                placeholder="请选择仓库位置"
-              >
-                <el-option
-                  v-for="item in this.addressList"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item.id"
-                ></el-option>
-              </el-select>
-            </el-col>
-            <el-col :span="4">
-              <el-button
-                style="margin-left: 12px"
-                type="primary"
-                @click="addStoreAddress"
-                >新增</el-button
-              >
-            </el-col>
-          </el-form-item>
-          <el-form-item label="责任人：" prop="user_id">
-            <el-select v-model="formData.user_id" placeholder="请选择责任人">
-              <el-option
-                v-for="item in this.adminList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="diaLogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="addRecEvent">确 定</el-button>
-        </div>
-      </el-dialog>
+    </el-dialog>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      diaLogFormTypeVisible: false,
+      diaLogFormStoreTypeVisible: false,
+      diaLogFormStoreAddressVisible: false,
       diaLogFormVisible: false,
       diaLogTitle: "添加人员信息",
       searchFormData: { searchStoreType: "", searchStoreAddress: "" },
@@ -222,27 +276,16 @@ export default {
         name: [
           {
             required: true,
-            message: "请输入仓库名称",
+            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
             trigger: "blur",
           },
           {
-            pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,10}$/,
-            message: "请输入名称长度2-10个中英文数字下划线组合",
+            pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,10}$/,
+            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
             trigger: "blur",
           },
         ],
-        phone: [
-          {
-            required: true,
-            message: "请输入手机号码",
-            trigger: "blur",
-          },
-          {
-            pattern: /^1[34578]\d{9}$/,
-            message: "请输入正确的手机号码",
-            trigger: "blur",
-          },
-        ],
+
         type_id: [
           {
             required: true,
@@ -330,6 +373,9 @@ export default {
     editRecEvent(id) {
       this.diaLogTitle = "编辑仓库";
       this.diaLogFormVisible = true;
+        this.$nextTick(() => {
+        this.$refs["formRulesRef"].clearValidate();
+      });
       this.getStoreTypes();
       this.getAddressLists();
       this.getAdminLists();
@@ -441,7 +487,7 @@ export default {
       });
     },
     addStoreType() {
-      this.diaLogFormTypeVisible = true;
+      this.diaLogFormStoreTypeVisible = true;
     },
     addStoreTypeEvent() {
       this.$prompt("类型名称：", "新增仓库类型", {
@@ -449,9 +495,10 @@ export default {
         closeOnClickModal: false,
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        inputPlaceholder: "请输入仓库类型名称",
-        inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,10}$/,
-        inputErrorMessage: "请输入名称长度2-10个中英文数字下划线组合",
+        inputPlaceholder: "请输入类型名称",
+        inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,20}$/,
+        inputErrorMessage:
+          "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
       })
         .then(({ value }) => {
           this.request({
@@ -462,25 +509,61 @@ export default {
             var data = response.data;
             if (data.status == 1) {
               this.getStoreTypes();
-              this.formData.type_id = this.storeTypeList[0].id;
+              this.getDataList();
               this.$message({
                 type: "success",
-                message: "新增成功！",
+                message: "保存成功！",
               });
             }
           });
         })
         .catch(() => {});
     },
+    editStoreTypeEvent(id, name) {
+      this.$prompt("类型名称：", "编辑仓库类型", {
+        customClass: "el-message-box-new",
+        closeOnClickModal: false,
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        inputValue: name,
+        inputPlaceholder: "请输入类型名称",
+        inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,20}$/,
+        inputErrorMessage:
+          "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+      })
+        .then(({ value }) => {
+          this.request({
+            url: "/store/editStoreType",
+            method: "post",
+            data: { id: id, name: value },
+          }).then((response) => {
+            var data = response.data;
+            if (data.status == 1) {
+              this.getStoreTypes();
+              this.getDataList();
+              this.$message({
+                type: "success",
+                message: "保存成功！",
+              });
+            }
+          });
+        })
+        .catch(() => {});
+    },
+
     addStoreAddress() {
+      this.diaLogFormStoreAddressVisible = true;
+    },
+    addStoreAddressEvent() {
       this.$prompt("仓库位置：", "新增仓库位置", {
         customClass: "el-message-box-new",
         closeOnClickModal: false,
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         inputPlaceholder: "请输入仓库位置",
-        inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,10}$/,
-        inputErrorMessage: "请输入名称长度2-10个中英文数字下划线组合",
+        inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,20}$/,
+        inputErrorMessage:
+          "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
       })
         .then(({ value }) => {
           this.request({
@@ -490,11 +573,42 @@ export default {
           }).then((response) => {
             var data = response.data;
             if (data.status == 1) {
+              this.getDataList();
               this.getAddressLists();
-              this.formData.address_id = this.addressList[0].id;
               this.$message({
                 type: "success",
-                message: "新增成功！",
+                message: "保存成功！",
+              });
+            }
+          });
+        })
+        .catch(() => {});
+    },
+    editStoreAddressEvent(id, name) {
+      this.$prompt("仓库位置：", "编辑仓库位置", {
+        customClass: "el-message-box-new",
+        closeOnClickModal: false,
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        inputValue: name,
+        inputPlaceholder: "请输入仓库位置",
+        inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,20}$/,
+        inputErrorMessage:
+          "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+      })
+        .then(({ value }) => {
+          this.request({
+            url: "/store/editAddress",
+            method: "post",
+            data: { id: id, name: value },
+          }).then((response) => {
+            var data = response.data;
+            if (data.status == 1) {
+              this.getDataList();
+              this.getAddressLists();
+              this.$message({
+                type: "success",
+                message: "保存成功！",
               });
             }
           });

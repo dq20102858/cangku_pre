@@ -13,6 +13,7 @@
         <el-form-item prop="username">
           <el-input
             v-model="loginForm.username"
+            maxlength="20"
             placeholder="用户名"
             autocomplete="new-password"
             clearable
@@ -26,6 +27,7 @@
           <el-input
             type="password"
             v-model="loginForm.password"
+            maxlength="20"
             placeholder="登录密码"
             autocomplete="new-password"
             clearable
@@ -62,22 +64,11 @@ export default {
             message: "请输入用户名",
             trigger: "blur",
           },
-          {
-            pattern: /^[\u4e00-\u9fa5A-Za-z0-9\_]*$/,
-            message: "请输入正确的用户名",
-            trigger: "blur",
-          },
         ],
         password: [
           {
             required: true,
             message: "请输入密码",
-            trigger: "blur",
-          },
-          {
-            min: 2,
-            max: 14,
-            message: "请输入密码长度6到14个字符",
             trigger: "blur",
           },
         ],
@@ -110,7 +101,8 @@ export default {
             return false;
           }
           this.loading = true;
-          this.$store.dispatch("LoginSystem", this.loginForm)
+          this.$store
+            .dispatch("LoginSystem", this.loginForm)
             .then(() => {
               this.loading = false;
               this.$router.push({ path: "/" });
@@ -133,7 +125,8 @@ export default {
   position: fixed;
   height: 100%;
   width: 100%;
-   background: #4887FF  url('~@/assets/image/icon-login-bg.jpg')  no-repeat center center;
+  background: #4887ff url("~@/assets/image/icon-login-bg.jpg") no-repeat center
+    center;
 }
 .mod-new-reg-bg {
   position: fixed;
@@ -165,7 +158,7 @@ export default {
   margin-bottom: 30px;
 }
 .login-container .el-input-group__prepend {
-  border: 1px #4887FC solid;
+  border: 1px #4887fc solid;
   background: #fff;
   padding: 0 5px;
   border-right: 0;
@@ -181,9 +174,9 @@ export default {
   background: #fff !important;
   border: 6px;
   padding: 0 5px 0 1px;
-  color: #4887FC;
+  color: #4887fc;
   height: 45px;
-  border: 1px #4887FC solid;
+  border: 1px #4887fc solid;
   border-left: 0;
 }
 .login-container input:-webkit-autofill {
@@ -192,5 +185,4 @@ export default {
 .login-container .el-form-item__error {
   padding-top: 5px;
 }
-
 </style>

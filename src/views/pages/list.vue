@@ -1,103 +1,101 @@
 <template>
-    <div class="app-page">
+  <div class="app-page">
     <div class="el-search">
       <div class="prepend">库存清单</div>
     </div>
-      <div class="app-page-select">
-        <el-form :inline="true">
-          <el-form-item class="el-form-item" label="物品名称：">
-            <el-input
-              maxlength="30"
-              v-model="searchFormData.searchName"
-              class="input-with-select"
-            ></el-input>
-          </el-form-item>
-          <el-form-item class="el-form-item" label="仓库类型：">
-            <el-select
-              v-model="searchFormData.searchStoreType"
-              placeholder="请选择仓库类型"
-            >
-              <el-option label="全部类型" value=""></el-option>
-              <el-option
-                v-for="item in storeTypeList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item class="el-form-item" label="仓库名称：">
-            <el-select
-              v-model="searchFormData.searchStore"
-              placeholder="请选择仓库名称"
-            >
-              <el-option label="全部仓库" value=""></el-option>
-              <el-option
-                v-for="item in storeList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item class="el-form-item">
-            <el-button type="primary" @click="searchEvent">查询</el-button>
-            <el-button @click="searchResetEvent">重置</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-      <div class="app-table app-table-nowrap">
-        <el-table
-          :data="dataList"
-          border
-          stripe
-          :default-sort="{ prop: 'create_time' }"
-        >
-          <el-table-column label="序号" width="80px">
-            <template slot-scope="scope">{{
-              scope.$index + (page_current - 1) * page_size + 1
-            }}</template>
-          </el-table-column>
-          <el-table-column prop="number" label="物品编号"></el-table-column>
-          <el-table-column
-            prop="product_name"
-            label="物品名称"
-          ></el-table-column>
-          <el-table-column prop="unit" label="物品规格"></el-table-column>
-          <el-table-column prop="stock" label="物品数量"></el-table-column>
-          <el-table-column prop="store" label="仓库名称"></el-table-column>
-          <el-table-column prop="alert_num" label="告警数量"></el-table-column>
-          <el-table-column label="告警设置" width="80">
-            <template slot-scope="scope">
-              <div class="app-operation">
-                <el-button
-                  class="btn-edit"
-                  @click="editRecEvent(scope.row.id)"
-                  title="编辑"
-                  ><i class="el-icon-setting"></i
-                ></el-button>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="app-pagination">
-          <el-pagination
-            background
-            layout="total,  prev, pager, next, jumper"
-            :current-page="this.page_current"
-            :page-sizes="[20]"
-            :page-size="this.page_size"
-            :total="this.page_total"
-            @current-change="pageChange"
+    <div class="app-page-select">
+      <el-form :inline="true">
+        <el-form-item class="el-form-item" label="物品名称：">
+          <el-input
+            maxlength="30"
+            v-model="searchFormData.searchName"
+            class="input-with-select"
+          ></el-input>
+        </el-form-item>
+        <el-form-item class="el-form-item" label="仓库类型：">
+          <el-select
+            v-model="searchFormData.searchStoreType"
+            placeholder="请选择仓库类型"
           >
-          </el-pagination>
-        </div>
+            <el-option label="全部类型" value=""></el-option>
+            <el-option
+              v-for="item in storeTypeList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="el-form-item" label="仓库名称：">
+          <el-select
+            v-model="searchFormData.searchStore"
+            placeholder="请选择仓库名称"
+          >
+            <el-option label="全部仓库" value=""></el-option>
+            <el-option
+              v-for="item in storeList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="el-form-item">
+          <el-button type="primary" @click="searchEvent">查询</el-button>
+          <el-button @click="searchResetEvent">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div class="app-table app-table-nowrap">
+      <el-table
+        :data="dataList"
+        border
+        stripe
+        :default-sort="{ prop: 'create_time' }"
+      >
+        <el-table-column label="序号" width="80px">
+          <template slot-scope="scope">{{
+            scope.$index + (page_current - 1) * page_size + 1
+          }}</template>
+        </el-table-column>
+        <el-table-column prop="number" label="物品编号"></el-table-column>
+        <el-table-column prop="product_name" label="物品名称"></el-table-column>
+        <el-table-column prop="unit" label="物品规格"></el-table-column>
+        <el-table-column prop="stock" label="物品数量"></el-table-column>
+        <el-table-column prop="store" label="仓库名称"></el-table-column>
+        <el-table-column prop="alert_num" label="告警数量"></el-table-column>
+        <el-table-column label="告警设置" width="80">
+          <template slot-scope="scope">
+            <div class="app-operation">
+              <el-button
+                class="btn-edit"
+                @click="editRecEvent(scope.row.id)"
+                title="编辑"
+                ><i class="el-icon-setting"></i
+              ></el-button>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="app-pagination">
+        <el-pagination
+          background
+          layout="total,  prev, pager, next, jumper"
+          :current-page="this.page_current"
+          :page-sizes="[20]"
+          :page-size="this.page_size"
+          :total="this.page_total"
+          @current-change="pageChange"
+        >
+        </el-pagination>
       </div>
+    </div>
     <el-dialog
       width="400px"
       class="dialog-list"
       title="告警设置"
       :close-on-click-modal="false"
+      :append-to-body="true"
       :visible.sync="diaLogFormVisible"
     >
       <el-form

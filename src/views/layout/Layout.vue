@@ -53,7 +53,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 999;
+  z-index: 900;
 }
 .app-container-sidebar {
   position: fixed;
@@ -73,7 +73,7 @@ export default {
   top: 80px;
   right: 0;
   bottom: 0;
-  z-index: 998;
+  z-index: 1000;
   width: auto;
   overflow-y: auto;
   box-sizing: border-box;

@@ -1,5 +1,5 @@
 <template>
-    <div class="app-page">
+  <div class="app-page">
     <div class="el-search">
       <div class="prepend">物品管理</div>
       <!-- <div class="item">
@@ -8,106 +8,123 @@
         <el-button slot="append" icon="el-icon-search"></el-button>
       </div> -->
     </div>
-      <div class="app-page-select">
-        <el-form :inline="true">
-          <el-form-item class="el-form-item" label="物品编号：">
-            <el-input
-              maxlength="30"
-              v-model="searchFormData.searchNumber"
-              class="input-with-select"
-            ></el-input>
-          </el-form-item>
-          <el-form-item class="el-form-item" label="物品名称：">
-            <el-input
-              v-model="searchFormData.searchName"
-              class="input-with-select"
-            ></el-input>
-          </el-form-item>
-          <el-form-item class="el-form-item">
-            <el-button type="primary" @click="pageSearchEvent">查询</el-button>
-            <el-button @click="pageSearchResetEvent">重置</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-      <div class="app-page-addbtn">
-        <el-button type="warning" @click="addShowDialog">新增</el-button>
-      </div>
-      <div class="app-table app-table-nowrap">
-        <el-table :data="dataList" border stripe>
-          <el-table-column label="序号" width="80px">
-            <template slot-scope="scope">{{
-              scope.$index + (page_current - 1) * page_size + 1
-            }}</template>
-          </el-table-column>
-          <el-table-column prop="number" label="物品编号" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="name" label="物品名称" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="unit" label="物品规格"></el-table-column>
-          <el-table-column prop="remark" label="备注" show-overflow-tooltip></el-table-column>
-          <el-table-column label="操作" width="88">
-            <template slot-scope="scope">
-              <div class="app-operation">
-                <el-button
-                  class="btn-edit"
-                  @click="editRecEvent(scope.row.id)"
-                  title="编辑"
-                  ><i class="el-icon-edit-outline"></i
-                ></el-button>
-                <el-button
-                  class="btn-del"
-                  @click="delRecEvent(scope.row.id)"
-                  title="删除"
-                  ><i class="el-icon-delete"></i
-                ></el-button>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="app-pagination" v-if="dataList.length !== 0">
-          <el-pagination
-            background
-            prev-text="上一页"
-            next-text="下一页"
-            layout="total,  prev, pager, next, jumper"
-            :current-page="this.page_current"
-            :page-size="this.page_size"
-            :total="this.page_total"
-            @current-change="pageChange"
-          >
-          </el-pagination>
-        </div>
-      </div>
-      <el-dialog
-        width="600px"
-        class="dialog-goods"
-        :title="this.diaLogTitle"
-        :close-on-click-modal="false"
-        :visible.sync="diaLogFormVisible"
-      >
-        <el-form
-          :model="formData"
-          class="el-form-custom"
-          :rules="formRules"
-          ref="formRulesRef"
-          label-width="110px"
+    <div class="app-page-select">
+      <el-form :inline="true">
+        <el-form-item class="el-form-item" label="物品编号：">
+          <el-input
+            maxlength="30"
+            v-model="searchFormData.searchNumber"
+            class="input-with-select"
+          ></el-input>
+        </el-form-item>
+        <el-form-item class="el-form-item" label="物品名称：">
+          <el-input
+            v-model="searchFormData.searchName"
+            class="input-with-select"
+          ></el-input>
+        </el-form-item>
+        <el-form-item class="el-form-item">
+          <el-button type="primary" @click="pageSearchEvent">查询</el-button>
+          <el-button @click="pageSearchResetEvent">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div class="app-page-addbtn">
+      <el-button type="warning" @click="addShowDialog">新增</el-button>
+    </div>
+    <div class="app-table app-table-nowrap">
+      <el-table :data="dataList" border stripe>
+        <el-table-column label="序号" width="80px">
+          <template slot-scope="scope">{{
+            scope.$index + (page_current - 1) * page_size + 1
+          }}</template>
+        </el-table-column>
+        <el-table-column
+          prop="number"
+          label="物品编号"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column
+          prop="name"
+          label="物品名称"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column prop="unit" label="物品规格"></el-table-column>
+        <el-table-column
+          prop="remark"
+          label="备注"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column label="操作" width="88">
+          <template slot-scope="scope">
+            <div class="app-operation">
+              <el-button
+                class="btn-edit"
+                @click="editRecEvent(scope.row.id)"
+                title="编辑"
+                ><i class="el-icon-edit-outline"></i
+              ></el-button>
+              <el-button
+                class="btn-del"
+                @click="delRecEvent(scope.row.id)"
+                title="删除"
+                ><i class="el-icon-delete"></i
+              ></el-button>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="app-pagination" v-if="dataList.length !== 0">
+        <el-pagination
+          background
+          prev-text="上一页"
+          next-text="下一页"
+          layout="total,  prev, pager, next, jumper"
+          :current-page="this.page_current"
+          :page-size="this.page_size"
+          :total="this.page_total"
+          @current-change="pageChange"
         >
-          <el-form-item label="物品名称：" prop="name">
-            <el-input v-model="formData.name" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="物品编号：" prop="number">
-            <el-input v-model="formData.number" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="物品规格：" prop="unit">
-            <el-input v-model="formData.unit" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="备注：" prop="remark">
-            <el-input v-model="formData.remark" type="textarea"  :rows="5"></el-input>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="diaLogFormVisible = false">取 消</el-button>
-          <el-button type="primary" @click="addRecEvent">确 定</el-button>
-        </div>
-      </el-dialog>
+        </el-pagination>
+      </div>
+    </div>
+    <el-dialog
+      width="600px"
+      class="dialog-goods"
+      :title="this.diaLogTitle"
+      :close-on-click-modal="false"
+      :append-to-body="true"
+      :visible.sync="diaLogFormVisible"
+    >
+      <el-form
+        :model="formData"
+        class="el-form-custom"
+        :rules="formRules"
+        ref="formRulesRef"
+        label-width="110px"
+      >
+        <el-form-item label="物品名称：" prop="name">
+          <el-input v-model="formData.name" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="物品编号：" prop="number">
+          <el-input v-model="formData.number" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="物品规格：" prop="unit">
+          <el-input v-model="formData.unit" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="备注：" prop="remark">
+          <el-input
+            v-model="formData.remark"
+            type="textarea"
+            :rows="5"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="diaLogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addRecEvent">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -122,36 +139,36 @@ export default {
         name: [
           {
             required: true,
-            message: "请输入物品名称",
+            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
             trigger: "blur",
           },
           {
-            pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,20}$/,
-            message: "请输入名称长度2-20个中英文数字下划线组合",
+            pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,20}$/,
+            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
             trigger: "blur",
           },
         ],
         number: [
           {
             required: true,
-            message: "请输入物品编号",
+            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
             trigger: "blur",
           },
           {
-            pattern: /^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{2,20}$/,
-            message: "请输入名称长度2-20个中英文数字下划线组合",
+            pattern: /^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,20}$/,
+            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
             trigger: "blur",
           },
         ],
         unit: [
           {
             required: true,
-            message: "请输入物品规格",
+            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
             trigger: "blur",
           },
           {
-            pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5]{1,10}$/,
-            message: "请输入名称长度1-10个中英文数字下划线组合",
+            pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5]{1,20}$/,
+            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
             trigger: "blur",
           },
         ],
@@ -164,8 +181,14 @@ export default {
         ],
         remark: [
           {
-            pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5]{2,100}$/,
-            message: "请输入名称长度2-100个中英文数字下划线组合",
+            min: 1,
+            max: 100,
+            message: "请输入长度1-100个字符的汉字、字母、数字、下划线组合",
+            trigger: "blur",
+          },
+          {
+            pattern: /(^\S+).*(\S+$)/,
+            message: "开始和结尾不能有空格",
             trigger: "blur",
           },
         ],
@@ -277,7 +300,7 @@ export default {
     delRecEvent(id) {
       this.$confirm("您确定要删除？删除后不可恢复！", "提示信息", {
         confirmButtonText: "确定",
-            cancelButtonText: "取消",
+        cancelButtonText: "取消",
         type: "warning",
         customClass: "el-message-box-dev",
       })
