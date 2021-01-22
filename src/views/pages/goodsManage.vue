@@ -164,12 +164,12 @@ export default {
         unit: [
           {
             required: true,
-            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+            message: "请输入长度1-10个字符的汉字、字母、数字、下划线组合",
             trigger: "blur",
           },
           {
-             pattern: /^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,20}$/,
-            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+             pattern: /^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,10}$/,
+            message: "请输入长度1-10个字符的汉字、字母、数字、下划线组合",
             trigger: "blur",
           },
         ],
