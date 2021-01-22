@@ -119,7 +119,7 @@ export default {
       searchFormData: {
         searchStoreType: "",
         searchStore: "",
-        searchDateType: 1,
+        searchDateType: 4,
       },
       page_current: 1,
       page_size: 20,
