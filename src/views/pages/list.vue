@@ -105,7 +105,7 @@
         label-width="110px"
       >
         <el-form-item label="告警数量：" prop="alert_num">
-          <el-input v-model="formData.alert_num" autocomplete="off"></el-input>
+          <el-input v-model="formData.alert_num" autocomplete="off" maxlength="9"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -134,8 +134,8 @@ export default {
             trigger: "blur",
           },
           {
-            pattern: /^[0-9]{1,10}$/,
-            message: "请输入告警数量长度1-10个数字",
+            pattern: /^[0-9]{1,9}$/,
+            message: "请输入告警数量长度1-9个数字",
             trigger: "blur",
           },
         ],
