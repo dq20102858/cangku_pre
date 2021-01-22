@@ -184,7 +184,7 @@ export default {
           {
             min: 1,
             max: 100,
-            message: "请输入长度1-100个字符的汉字、字母、数字、下划线组合",
+            message: "请输入长度1-100个字符",
             trigger: "blur",
           },
           {
