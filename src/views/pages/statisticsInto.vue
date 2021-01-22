@@ -181,7 +181,7 @@ export default {
       this.searchFormData = {
         searchStore: "",
         searchStoreType: "",
-        searchDateType: 1,
+        searchDateType: 4,
       };
       this.page_current = 1;
       this.getDataList();
