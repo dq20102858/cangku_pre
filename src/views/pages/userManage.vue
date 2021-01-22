@@ -562,7 +562,7 @@ export default {
         cancelButtonText: "取消",
         inputPlaceholder: "请输入部门名称",
         inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,10}$/,
-        inputErrorMessage: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+        inputErrorMessage: "请输入长度1-10个字符的汉字、字母、数字、下划线组合",
       })
         .then(({ value }) => {
           this.request({
@@ -592,7 +592,7 @@ export default {
         inputPlaceholder: "请输入部门名称",
         inputValue: name,
         inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,10}$/,
-        inputErrorMessage: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+        inputErrorMessage: "请输入长度1-10个字符的汉字、字母、数字、下划线组合",
       })
         .then(({ value }) => {
           this.request({
@@ -633,7 +633,7 @@ export default {
           inputPlaceholder: "请输入职位名称",
           inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,10}$/,
           inputErrorMessage:
-            "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+            "请输入长度1-10个字符的汉字、字母、数字、下划线组合",
         })
           .then(({ value }) => {
             this.request({
@@ -669,7 +669,7 @@ export default {
           inputValue: name,
           inputPattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,10}$/,
           inputErrorMessage:
-            "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+            "请输入长度1-10个字符的汉字、字母、数字、下划线组合",
         })
           .then(({ value }) => {
             this.request({
