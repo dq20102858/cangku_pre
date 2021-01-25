@@ -97,7 +97,7 @@
       </div>
     </div>
     <el-dialog
-      width="500px"
+      width="600px"
       class="dialog-depart"
       title="部门管理"
       :close-on-click-modal="false"
@@ -114,7 +114,7 @@
       >
       <div class="text item">
         <div class="app-table app-table-nowrap">
-          <el-table :data="departListItem" border stripe>
+          <el-table :data="departListItem" border stripe height="480">
             <el-table-column label="序号" width="80px">
               <template slot-scope="scope">{{ scope.$index + 1 }}</template>
             </el-table-column>
@@ -132,11 +132,12 @@
               </template>
             </el-table-column>
           </el-table>
+          <br />
         </div>
       </div>
     </el-dialog>
     <el-dialog
-      width="500px"
+      width="600px"
       class="dialog-post"
       title="职位管理"
       :close-on-click-modal="false"
@@ -153,7 +154,7 @@
       >
       <div class="text item">
         <div class="app-table app-table-nowrap">
-          <el-table :data="postListItem" border stripe>
+          <el-table :data="postListItem" border stripe height="480">
             <el-table-column label="序号" width="80px">
               <template slot-scope="scope">{{ scope.$index + 1 }}</template>
             </el-table-column>
@@ -171,6 +172,7 @@
               </template>
             </el-table-column>
           </el-table>
+          <br />
         </div>
       </div>
     </el-dialog>

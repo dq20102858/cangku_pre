@@ -86,6 +86,8 @@
           :page-sizes="[20]"
           :page-size="this.page_size"
           :total="this.page_total"
+             prev-text="上一页"
+          next-text="下一页"
           @current-change="pageChange"
         >
         </el-pagination>

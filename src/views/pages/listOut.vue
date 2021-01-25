@@ -96,6 +96,8 @@
           :page-size="this.page_size"
           :total="this.page_total"
           @current-change="pageChange"
+             prev-text="上一页"
+          next-text="下一页"
         >
         </el-pagination>
       </div>

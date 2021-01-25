@@ -72,6 +72,7 @@ ul,li{list-style-type: none}
 .app-pagination  .btn-next span,.app-pagination  .btn-prev span{padding: 0 10px;border: 1px #ddd solid;border-radius: 3px;}
 .app-pagination  .active {border-color:#409EFF!important;}
 .app-pagination  .el-pagination__total {border: 1px #DCDFE6 solid;border-radius: 3px;padding: 0 10px;margin-right: 5px;}
+.app-pagination  span{line-height: 26px!important;}
 /* dialog */
 .el-dialog{border-radius: 3px; margin-top: 18vh!important;}
 .el-dialog__header{border-radius:6px 6px 0 0; background: #EAF1FF;text-align: center;padding:12px;}

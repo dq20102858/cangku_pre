@@ -118,7 +118,7 @@
       >
       <div class="text item">
         <div class="app-table app-table-nowrap">
-          <el-table :data="storeTypeList" border stripe>
+          <el-table :data="storeTypeList" border stripe height="480">
             <el-table-column
               prop="id"
               label="编号"
@@ -158,7 +158,7 @@
       >
       <div class="text item">
         <div class="app-table app-table-nowrap">
-          <el-table :data="addressList" border stripe>
+          <el-table :data="addressList" border stripe height="480">
             <el-table-column
               prop="id"
               label="编号"
