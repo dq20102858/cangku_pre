@@ -212,7 +212,7 @@ export default {
       let store_id = this.searchFormData.searchStore;
       this.request({
         url: "/product/getProductPages",
-        method: "get",
+        method: "get",                                                                                                            
         params: {
           page,
           name,

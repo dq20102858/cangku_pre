@@ -16,6 +16,7 @@
           <el-select
             v-model="searchFormData.searchStoreType"
             placeholder="选择仓库类型"
+            @change="searchStoreTypeEvent($event)"
           >
             <el-option label="全部类型" value=""></el-option>
             <el-option
@@ -180,6 +181,7 @@ export default {
         searchStoreType: "",
         searchDateType: 4,
       };
+      this.getStoreLists();
       this.page_current = 1;
       this.getDataList();
     },
@@ -196,6 +198,19 @@ export default {
         var res = response.data;
         if (res.status == 1) {
           this.storeTypeList = res.data;
+        }
+      });
+    },
+    searchStoreTypeEvent(val) {
+      this.$set(this.searchFormData, "searchStore", "");
+      this.request({
+        url: "/store/getStoreLists",
+        method: "get",
+        params: { type_id: val },
+      }).then((response) => {
+        var res = response.data;
+        if (res.status == 1) {
+          this.storeList = res.data;
         }
       });
     },

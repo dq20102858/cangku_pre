@@ -7,7 +7,7 @@
       <el-form :inline="true">
         <el-form-item class="el-form-item" label="物品名称：">
           <el-input
-             maxlength="20"
+            maxlength="20"
             v-model="searchFormData.searchName"
             class="input-with-select"
           ></el-input>
@@ -16,6 +16,7 @@
           <el-select
             v-model="searchFormData.searchStoreType"
             placeholder="请选择仓库类型"
+            @change="searchStoreTypeEvent($event)"
           >
             <el-option label="全部类型" value=""></el-option>
             <el-option
@@ -47,11 +48,7 @@
       </el-form>
     </div>
     <div class="app-table app-table-nowrap">
-      <el-table
-        :data="dataList"
-        border
-        stripe
-      >
+      <el-table :data="dataList" border stripe>
         <el-table-column label="序号" width="80px">
           <template slot-scope="scope">{{
             scope.$index + (page_current - 1) * page_size + 1
@@ -60,7 +57,7 @@
         <el-table-column prop="number" label="物品编号"></el-table-column>
         <el-table-column prop="product_name" label="物品名称"></el-table-column>
         <el-table-column prop="stock" label="物品数量"></el-table-column>
-         <el-table-column prop="unit" label="物品规格"></el-table-column>
+        <el-table-column prop="unit" label="物品规格"></el-table-column>
         <el-table-column prop="store" label="仓库名称"></el-table-column>
         <el-table-column prop="alert_num" label="告警数量"></el-table-column>
         <el-table-column label="告警设置" width="80">
@@ -105,7 +102,11 @@
         label-width="110px"
       >
         <el-form-item label="告警数量：" prop="alert_num">
-          <el-input v-model="formData.alert_num" autocomplete="off" maxlength="9"></el-input>
+          <el-input
+            v-model="formData.alert_num"
+            autocomplete="off"
+            maxlength="9"
+          ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -192,6 +193,7 @@ export default {
         searchStore: "",
         searchName: "",
       };
+      this.getStoreLists();
       this.page_current = 1;
       this.getDataList();
     },
@@ -214,6 +216,19 @@ export default {
         var res = response.data;
         if (res.status == 1) {
           this.storeTypeList = res.data;
+        }
+      });
+    },
+    searchStoreTypeEvent(val) {
+      this.$set(this.searchFormData, "searchStore", "");
+      this.request({
+        url: "/store/getStoreLists",
+        method: "get",
+        params: { type_id: val },
+      }).then((response) => {
+        var res = response.data;
+        if (res.status == 1) {
+          this.storeList = res.data;
         }
       });
     },

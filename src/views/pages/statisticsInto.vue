@@ -7,7 +7,7 @@
       <el-form :inline="true">
         <el-form-item class="el-form-item" label="物品名称：">
           <el-input
-             maxlength="20"
+            maxlength="20"
             v-model="searchFormData.searchName"
             class="input-with-select"
           ></el-input>
@@ -16,6 +16,7 @@
           <el-select
             v-model="searchFormData.searchStoreType"
             placeholder="选择仓库类型"
+            @change="searchStoreTypeEvent($event)"
           >
             <el-option label="全部类型" value=""></el-option>
             <el-option
@@ -77,11 +78,7 @@
     </div>
 
     <div class="app-table app-table-nowrap">
-      <el-table
-        :data="dataList"
-        border
-        stripe
-      >
+      <el-table :data="dataList" border stripe>
         <el-table-column label="序号" width="80px">
           <template slot-scope="scope">{{
             scope.$index + (page_current - 1) * page_size + 1
@@ -183,6 +180,7 @@ export default {
         searchStoreType: "",
         searchDateType: 4,
       };
+      this.getStoreLists();
       this.page_current = 1;
       this.getDataList();
     },
@@ -199,6 +197,19 @@ export default {
         var res = response.data;
         if (res.status == 1) {
           this.storeTypeList = res.data;
+        }
+      });
+    },
+    searchStoreTypeEvent(val) {
+      this.$set(this.searchFormData, "searchStore", "");
+      this.request({
+        url: "/store/getStoreLists",
+        method: "get",
+        params: { type_id: val },
+      }).then((response) => {
+        var res = response.data;
+        if (res.status == 1) {
+          this.storeList = res.data;
         }
       });
     },

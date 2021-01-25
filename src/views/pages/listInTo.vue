@@ -1,115 +1,109 @@
 <template>
-    <div class="app-page">
+  <div class="app-page">
     <div class="el-search">
       <div class="prepend">入库管理</div>
     </div>
-      <div class="app-page-select">
-        <el-form :inline="true">
-          <el-form-item class="el-form-item" label="仓库类型：">
-            <el-select
-              v-model="searchFormData.searchStoreType"
-              placeholder="选择仓库类型"
-                         >
-            <el-option label="全部类型" value=""></el-option>
-              <el-option
-                v-for="item in storeTypeList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item class="el-form-item" label="仓库名称：">
-            <el-select
-              v-model="searchFormData.searchStore"
-              placeholder="选择仓库名称"
-            >
-            <el-option label="全部仓库" value=""></el-option>
-              <el-option
-                v-for="item in storeList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item class="el-form-item" label="入库人员：">
-            <el-select
-              v-model="searchFormData.searchUsers"
-              placeholder="选择仓库名称"
-            >
-               <el-option label="全部人员" value=""></el-option>
-              <el-option
-                v-for="item in adminList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item class="el-form-item" label="入库时间：">
-            <el-date-picker
-              v-model="searchFormData.serachDate"
-              type="date"
-              placeholder="选择日期"
-            >
-            </el-date-picker>
-          </el-form-item>
-          <el-form-item class="el-form-item">
-            <el-button type="primary" @click="pageSearchEvent">查询</el-button>
-            <el-button @click="pageSearchResetEvent">重置</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-      <div class="app-table app-table-nowrap">
-        <el-table
-          :data="dataList"
-          border
-          stripe
-        >
-          <el-table-column label="序号" width="80px">
-            <template slot-scope="scope">{{
-              scope.$index + (page_current - 1) * page_size + 1
-            }}</template>
-          </el-table-column>
-          <el-table-column
-            prop="create_time"
-            label="入库时间"
-          ></el-table-column>
-          <el-table-column prop="manager" label="入库人员"></el-table-column>
-          <el-table-column prop="depart" label="所属部门"></el-table-column>
-          <el-table-column prop="store" label="仓库名称"></el-table-column>
-          <el-table-column prop="store_type" label="仓库类型"></el-table-column>
-          <el-table-column label="入库详情" width="80">
-            <template slot-scope="scope">
-              <div class="app-operation">
-                <el-button
-                  class="btn-detail"
-                  @click="editRecEvent(scope.row.id)"
-                  title="编辑"
-                  ><i class="el-icon-set-up"></i
-                ></el-button>
-              </div>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="app-pagination">
-          <el-pagination
-            background
-            layout="total,  prev, pager, next, jumper"
-            :current-page="this.page_current"
-            :page-size="this.page_size"
-            :total="this.page_total"
-            @current-change="pageChange"
+    <div class="app-page-select">
+      <el-form :inline="true">
+        <el-form-item class="el-form-item" label="仓库类型：">
+          <el-select
+            v-model="searchFormData.searchStoreType"
+            placeholder="选择仓库类型"
+            @change="searchStoreTypeEvent($event)"
           >
-          </el-pagination>
-        </div>
+            <el-option label="全部类型" value=""></el-option>
+            <el-option
+              v-for="item in storeTypeList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="el-form-item" label="仓库名称：">
+          <el-select
+            v-model="searchFormData.searchStore"
+            placeholder="选择仓库名称"
+          >
+            <el-option label="全部仓库" value=""></el-option>
+            <el-option
+              v-for="item in storeList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="el-form-item" label="入库人员：">
+          <el-select
+            v-model="searchFormData.searchUsers"
+            placeholder="选择仓库名称"
+          >
+            <el-option label="全部人员" value=""></el-option>
+            <el-option
+              v-for="item in adminList"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="el-form-item" label="入库时间：">
+          <el-date-picker
+            v-model="searchFormData.serachDate"
+            type="date"
+            placeholder="选择日期"
+          >
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item class="el-form-item">
+          <el-button type="primary" @click="pageSearchEvent">查询</el-button>
+          <el-button @click="pageSearchResetEvent">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div class="app-table app-table-nowrap">
+      <el-table :data="dataList" border stripe>
+        <el-table-column label="序号" width="80px">
+          <template slot-scope="scope">{{
+            scope.$index + (page_current - 1) * page_size + 1
+          }}</template>
+        </el-table-column>
+        <el-table-column prop="create_time" label="入库时间"></el-table-column>
+        <el-table-column prop="manager" label="入库人员"></el-table-column>
+        <el-table-column prop="depart" label="所属部门"></el-table-column>
+        <el-table-column prop="store" label="仓库名称"></el-table-column>
+        <el-table-column prop="store_type" label="仓库类型"></el-table-column>
+        <el-table-column label="入库详情" width="80">
+          <template slot-scope="scope">
+            <div class="app-operation">
+              <el-button
+                class="btn-detail"
+                @click="editRecEvent(scope.row.id)"
+                title="编辑"
+                ><i class="el-icon-set-up"></i
+              ></el-button>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="app-pagination">
+        <el-pagination
+          background
+          layout="total,  prev, pager, next, jumper"
+          :current-page="this.page_current"
+          :page-size="this.page_size"
+          :total="this.page_total"
+          @current-change="pageChange"
+        >
+        </el-pagination>
       </div>
+    </div>
     <el-dialog
       width="680px"
       class="dialog-listinto"
       title="入库详情"
-        :append-to-body="true"
+      :append-to-body="true"
       :lock-scroll="false"
       :visible.sync="diaLogFormVisible"
     >
@@ -149,9 +143,9 @@ export default {
     return {
       diaLogFormVisible: false,
       searchFormData: {
-        searchStoreType:"",
-        searchStore:"",
-        searchUsers:""
+        searchStoreType: "",
+        searchStore: "",
+        searchUsers: "",
       },
       formData: [],
       page_current: 1,
@@ -208,10 +202,11 @@ export default {
     },
     pageSearchResetEvent() {
       this.searchFormData = {
-         searchStoreType:"",
-        searchStore:"",
-        searchUsers:""
+        searchStoreType: "",
+        searchStore: "",
+        searchUsers: "",
       };
+       this. getStoreLists();
       this.page_current = 1;
       this.getDataList();
     },
@@ -223,6 +218,19 @@ export default {
         var res = response.data;
         if (res.status == 1) {
           this.storeTypeList = res.data;
+        }
+      });
+    },
+    searchStoreTypeEvent(val) {
+      this.$set(this.searchFormData, "searchStore", "");
+      this.request({
+        url: "/store/getStoreLists",
+        method: "get",
+        params: { type_id: val },
+      }).then((response) => {
+        var res = response.data;
+        if (res.status == 1) {
+          this.storeList = res.data;
         }
       });
     },
