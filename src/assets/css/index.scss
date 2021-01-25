@@ -71,6 +71,7 @@ ul,li{list-style-type: none}
 .app-pagination  .el-pagination.is-background .el-pager li { border: 1px #ddd solid;border-radius: 3px;}
 .app-pagination  .btn-next span,.app-pagination  .btn-prev span{padding: 0 10px;border: 1px #ddd solid;border-radius: 3px;}
 .app-pagination  .active {border-color:#409EFF!important;}
+.app-pagination  .el-pagination__total {border: 1px #DCDFE6 solid;border-radius: 3px;padding: 0 10px;margin-right: 5px;}
 /* dialog */
 .el-dialog{border-radius: 3px; margin-top: 18vh!important;}
 .el-dialog__header{border-radius:6px 6px 0 0; background: #EAF1FF;text-align: center;padding:12px;}
@@ -81,7 +82,6 @@ ul,li{list-style-type: none}
 .el-dialog__headerbtn:hover .el-dialog__close {color: #fff;}
 .el-dialog .el-dialog__body{padding: 30px 30px 10px 20px;}
 .el-dialog .el-dialog__footer{padding: 20px 0px; text-align: center;background: #fafafa;border-radius: 0 0 6px 3px;}
-
 
 .el-message-box__wrapper{ top:-200px}
 .el-message-box-new {padding-bottom: 20px;border: #fff;border-radius:6px;}
