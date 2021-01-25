@@ -83,12 +83,6 @@
                 title="详情"
                 ><i class="el-icon-set-up"></i
               ></el-button>
-              <!-- <el-button
-                class="btn-detail"
-                @click="picRecEvent(scope.row.avatar)"
-                title="图片"
-                ><i class="el-icon-picture-outline"></i
-              ></el-button> -->
             </div>
           </template>
         </el-table-column>
@@ -106,7 +100,7 @@
       </div>
     </div>
     <el-dialog
-      width="680px"
+      width="780px"
       class="dialog-listinto"
       title="入库详情"
       :append-to-body="true"
@@ -119,6 +113,7 @@
             <p><span>入库人员：</span> {{ formData.user }}</p>
             <p><span>仓库名称： </span>{{ formData.store }}</p>
             <p><span>入库时间：</span> {{ formData.create_time }}</p>
+            <p><span style="color:#36c;cursor: pointer;" @click="picRecEvent(formData.avatar)">查看图片</span></p>
           </div>
         </div>
       </el-card>
@@ -128,7 +123,7 @@
         </div>
         <div class="text item">
           <div class="app-table app-table-nowrap">
-            <el-table :data="formData.list" border stripe>
+            <el-table :data="formData.list" border stripe height="480">
               <el-table-column prop="number" label="物品编号"></el-table-column>
               <el-table-column
                 prop="product_name"
@@ -140,17 +135,11 @@
           </div>
         </div>
       </el-card>
-      <el-card class="box-card">
-        <img
-          :src="formData.avatar"
-          style="margin: 0 auto; display: block;"
-        />
-      </el-card>
     </el-dialog>
-    <!-- <el-dialog
-      width="780px"
+    <el-dialog
+      width="600px"
       class="dialog-listinto"
-      title="入库照片"
+      title="图片"
       :append-to-body="true"
       :lock-scroll="false"
       :visible.sync="diaLogFormPicVisible"
@@ -159,7 +148,7 @@
         :src="diaLogFormPicURL"
         style="margin: 0 auto; display: block; margin-bottom: 20px"
       />
-    </el-dialog> -->
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -167,6 +156,8 @@ export default {
   data() {
     return {
       diaLogFormVisible: false,
+      diaLogFormPicVisible: false,
+      diaLogFormPicURL: "",
       searchFormData: {
         searchStoreType: "",
         searchStore: "",

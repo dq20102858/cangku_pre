@@ -74,7 +74,7 @@
         <el-table-column prop="manager" label="出库人员"></el-table-column>
         <el-table-column prop="depart" label="所属部门"></el-table-column>
         <el-table-column prop="store_type" label="仓库类型"></el-table-column>
-         <el-table-column prop="store" label="仓库名称"></el-table-column>
+        <el-table-column prop="store" label="仓库名称"></el-table-column>
         <el-table-column label="出库详情" width="80">
           <template slot-scope="scope">
             <div class="app-operation">
@@ -101,7 +101,7 @@
       </div>
     </div>
     <el-dialog
-      width="680px"
+      width="780px"
       class="dialog-listinto"
       title="出库详情"
       :append-to-body="true"
@@ -114,6 +114,13 @@
             <p><span>出库人员：</span> {{ formData.user }}</p>
             <p><span>仓库名称： </span>{{ formData.store }}</p>
             <p><span>出库时间：</span> {{ formData.create_time }}</p>
+            <p>
+              <span
+                style="color: #36c; cursor: pointer"
+                @click="picRecEvent(formData.avatar)"
+                >查看图片</span
+              >
+            </p>
           </div>
         </div>
       </el-card>
@@ -123,7 +130,7 @@
         </div>
         <div class="text item">
           <div class="app-table app-table-nowrap">
-            <el-table :data="formData.list" border stripe>
+            <el-table :data="formData.list" border stripe height="480">
               <el-table-column prop="number" label="物品编号"></el-table-column>
               <el-table-column
                 prop="product_name"
@@ -136,6 +143,19 @@
         </div>
       </el-card>
     </el-dialog>
+    <el-dialog
+      width="600px"
+      class="dialog-listinto"
+      title="图片"
+      :append-to-body="true"
+      :lock-scroll="false"
+      :visible.sync="diaLogFormPicVisible"
+    >
+      <img
+        :src="diaLogFormPicURL"
+        style="margin: 0 auto; display: block; margin-bottom: 20px"
+      />
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -143,6 +163,8 @@ export default {
   data() {
     return {
       diaLogFormVisible: false,
+      diaLogFormPicVisible: false,
+      diaLogFormPicURL: "",
       searchFormData: {
         searchStoreType: "",
         searchStore: "",
@@ -256,6 +278,10 @@ export default {
           this.adminList = res.data;
         }
       });
+    },
+    picRecEvent(val) {
+      this.diaLogFormPicVisible = true;
+      this.diaLogFormPicURL = val;
     },
     editRecEvent(id) {
       this.diaLogFormVisible = true;
