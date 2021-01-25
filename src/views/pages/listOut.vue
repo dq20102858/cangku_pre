@@ -73,8 +73,8 @@
         <el-table-column prop="create_time" label="出库时间"></el-table-column>
         <el-table-column prop="manager" label="出库人员"></el-table-column>
         <el-table-column prop="depart" label="所属部门"></el-table-column>
-        <el-table-column prop="store" label="仓库名称"></el-table-column>
         <el-table-column prop="store_type" label="仓库类型"></el-table-column>
+         <el-table-column prop="store" label="仓库名称"></el-table-column>
         <el-table-column label="出库详情" width="80">
           <template slot-scope="scope">
             <div class="app-operation">
