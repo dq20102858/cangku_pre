@@ -73,16 +73,22 @@
         <el-table-column prop="manager" label="入库人员"></el-table-column>
         <el-table-column prop="depart" label="所属部门"></el-table-column>
         <el-table-column prop="store_type" label="仓库类型"></el-table-column>
-          <el-table-column prop="store" label="仓库名称"></el-table-column>
+        <el-table-column prop="store" label="仓库名称"></el-table-column>
         <el-table-column label="入库详情" width="80">
           <template slot-scope="scope">
             <div class="app-operation">
               <el-button
                 class="btn-detail"
                 @click="editRecEvent(scope.row.id)"
-                title="编辑"
+                title="详情"
                 ><i class="el-icon-set-up"></i
               ></el-button>
+              <!-- <el-button
+                class="btn-detail"
+                @click="picRecEvent(scope.row.avatar)"
+                title="图片"
+                ><i class="el-icon-picture-outline"></i
+              ></el-button> -->
             </div>
           </template>
         </el-table-column>
@@ -134,7 +140,26 @@
           </div>
         </div>
       </el-card>
+      <el-card class="box-card">
+        <img
+          :src="formData.avatar"
+          style="margin: 0 auto; display: block;"
+        />
+      </el-card>
     </el-dialog>
+    <!-- <el-dialog
+      width="780px"
+      class="dialog-listinto"
+      title="入库照片"
+      :append-to-body="true"
+      :lock-scroll="false"
+      :visible.sync="diaLogFormPicVisible"
+    >
+      <img
+        :src="diaLogFormPicURL"
+        style="margin: 0 auto; display: block; margin-bottom: 20px"
+      />
+    </el-dialog> -->
   </div>
 </template>
 <script>
@@ -206,7 +231,7 @@ export default {
         searchStore: "",
         searchUsers: "",
       };
-       this. getStoreLists();
+      this.getStoreLists();
       this.page_current = 1;
       this.getDataList();
     },
@@ -268,6 +293,10 @@ export default {
           this.formData = data.data;
         }
       });
+    },
+    picRecEvent(val) {
+      this.diaLogFormPicVisible = true;
+      this.diaLogFormPicURL = val;
     },
     //
   },
