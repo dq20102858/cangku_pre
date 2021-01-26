@@ -133,7 +133,7 @@
         </div>
         <div class="text item">
           <div class="app-table app-table-nowrap">
-            <el-table :data="formData.list" border stripe height="480">
+            <el-table height="410" :data="formData.list" border stripe >
               <el-table-column prop="number" label="物品编号"></el-table-column>
               <el-table-column
                 prop="product_name"

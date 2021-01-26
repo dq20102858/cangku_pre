@@ -184,12 +184,12 @@ export default {
           {
             min: 1,
             max: 100,
-            message: "请输入长度1-100个字符",
+            message: "请输入长度2-100个字符",
             trigger: "blur",
           },
           {
             pattern: /(^\S+).*(\S+$)/,
-            message: "开始和结尾不能有空格",
+            message: "请输入长度2-100个字符开始和结尾不能有空格",
             trigger: "blur",
           },
         ],
