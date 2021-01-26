@@ -53,6 +53,7 @@
           <el-date-picker
             v-model="searchFormData.serachDate"
             type="date"
+            value-format="yyyy-MM-dd"
             placeholder="选择日期"
           >
           </el-date-picker>
@@ -97,7 +98,7 @@
           :page-size="this.page_size"
           :total="this.page_total"
           @current-change="pageChange"
-             prev-text="上一页"
+          prev-text="上一页"
           next-text="下一页"
         >
         </el-pagination>
@@ -133,7 +134,7 @@
         </div>
         <div class="text item">
           <div class="app-table app-table-nowrap">
-            <el-table height="410" :data="formData.list" border stripe >
+            <el-table height="410" :data="formData.list" border stripe>
               <el-table-column prop="number" label="物品编号"></el-table-column>
               <el-table-column
                 prop="product_name"
