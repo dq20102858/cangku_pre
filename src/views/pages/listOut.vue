@@ -134,14 +134,14 @@
         </div>
         <div class="text item">
           <div class="app-table app-table-nowrap">
-            <el-table height="410" :data="formData.list" border stripe>
-              <el-table-column prop="number" label="物品编号"></el-table-column>
+            <el-table  height="410" :data="formData.list" border stripe>
+              <el-table-column prop="number" label="物品编号" width="160"></el-table-column>
               <el-table-column
                 prop="product_name"
-                label="物品名称"
+                label="物品名称"  show-overflow-tooltip
               ></el-table-column>
-              <el-table-column prop="num" label="数量"></el-table-column>
-              <el-table-column prop="unit" label="规格"></el-table-column>
+              <el-table-column prop="num" label="数量" width="90"></el-table-column>
+              <el-table-column prop="unit" label="规格" width="90"  show-overflow-tooltip></el-table-column>
             </el-table>
           </div>
         </div>

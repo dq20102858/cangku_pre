@@ -311,7 +311,7 @@ export default {
       page_current: 1,
       page_total: 0,
       page_size: 20,
-      dataList: [],
+      dataList: [], 
       storeTypeList: [],
       addressList: [],
       adminList: [],
