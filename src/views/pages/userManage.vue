@@ -194,7 +194,6 @@
         <el-form-item label="人员姓名：" prop="name">
           <el-input v-model="formData.name" autocomplete="off"></el-input>
         </el-form-item>
-
         <el-form-item
           label="登录密码："
           prop="password"
@@ -202,7 +201,17 @@
         >
           <el-input v-model="formData.password" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="登录密码：" v-if="this.diaLogTitle == '编辑人员'">
+        <el-form-item
+          label="登录密码1："
+          prop="password"
+          :rules="[
+            {
+              pattern: /^[0-9a-zA-Z_]{1,10}$/,
+              message: '请输入长度1-10个字符的字母、数字、下划线组合',
+              trigger: 'blur',
+            },
+          ]"
+        >
           <el-input
             v-model="formData.password"
             autocomplete="off"
@@ -301,19 +310,6 @@ export default {
           {
             pattern: /^[0-9a-zA-Z_]{1,10}$/,
             message: "请输入长度1-10个字符的字母、数字、下划线组合",
-            trigger: "blur",
-          },
-        ],
-        passwordtwo: [
-          {
-            min: 2,
-            max: 10,
-            message: "输入密码长度2到10个字符",
-            trigger: "blur",
-          },
-          {
-            pattern: /^[0-9a-zA-Z_]{1,}$/,
-            message: "输入密码只能是数字、字母、下划线",
             trigger: "blur",
           },
         ],
