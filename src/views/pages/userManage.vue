@@ -202,7 +202,8 @@
           <el-input v-model="formData.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item
-          label="登录密码1："
+           v-if="this.diaLogTitle == '编辑人员'"
+          label="登录密码："
           prop="password"
           :rules="[
             {
@@ -215,7 +216,7 @@
           <el-input
             v-model="formData.password"
             autocomplete="off"
-            placeholder="不修改密码请留空"
+            placeholder="若不修改密码请保留空"
           ></el-input>
         </el-form-item>
         <el-form-item label="所属部门：" prop="depart_id">
