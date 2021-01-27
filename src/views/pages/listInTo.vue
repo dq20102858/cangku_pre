@@ -71,7 +71,6 @@
           }}</template>
         </el-table-column>
         <el-table-column prop="store_number" label="入库编号"></el-table-column>
-       
         <el-table-column prop="manager" label="入库人员"></el-table-column>
         <el-table-column prop="depart" label="所属部门"></el-table-column>
         <el-table-column prop="store_type" label="仓库类型"></el-table-column>
