@@ -71,11 +71,12 @@
           }}</template>
         </el-table-column>
         <el-table-column prop="store_number" label="入库编号"></el-table-column>
-        <el-table-column prop="create_time" label="入库时间"></el-table-column>
+       
         <el-table-column prop="manager" label="入库人员"></el-table-column>
         <el-table-column prop="depart" label="所属部门"></el-table-column>
         <el-table-column prop="store_type" label="仓库类型"></el-table-column>
         <el-table-column prop="store" label="仓库名称"></el-table-column>
+         <el-table-column prop="create_time" label="入库时间"></el-table-column>
         <el-table-column label="入库详情" width="80">
           <template slot-scope="scope">
             <div class="app-operation">
