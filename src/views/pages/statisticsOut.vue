@@ -44,41 +44,24 @@
         <el-form-item class="el-form-item" label="出库时间：">
           <el-date-picker
             v-model="searchFormData.serachTime"
-            type="date"
-             value-format="yyyy-MM-dd"
-            placeholder="选择日期"
+            type="daterange"
+            unlink-panels
+            value-format="yyyy-MM-dd"
+            :picker-options="pickerOptions"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            align="right"
           >
           </el-date-picker>
         </el-form-item>
         <el-form-item class="el-form-item">
           <el-button type="primary" @click="pageSearchEvent">查询</el-button>
           <el-button @click="pageSearchResetEvent">重置</el-button>
-        </el-form-item>
-        <el-form-item class="el-form-year">
-          <span
-            @click="searchYearEvent(1)"
-            :class="this.searchFormData.searchDateType == 1 ? 'active' : ''"
-            >日</span
-          >
-          <span
-            @click="searchYearEvent(2)"
-            :class="this.searchFormData.searchDateType == 2 ? 'active' : ''"
-            >月</span
-          >
-          <span
-            @click="searchYearEvent(3)"
-            :class="this.searchFormData.searchDateType == 3 ? 'active' : ''"
-            >年</span
-          >
-          <span
-            @click="searchYearEvent(4)"
-            :class="this.searchFormData.searchDateType == 4 ? 'active' : ''"
-            >总</span
-          >
+          <el-button plain type="warning" @click="expectExcelOut">导出信息</el-button>
         </el-form-item>
       </el-form>
     </div>
-
     <div class="app-table app-table-nowrap">
       <el-table :data="dataList" border stripe>
         <el-table-column label="序号" width="80px">
@@ -87,7 +70,11 @@
           }}</template>
         </el-table-column>
         <el-table-column prop="number" label="物品编号"></el-table-column>
-        <el-table-column prop="product_name" label="物品名称"></el-table-column>
+        <el-table-column
+          prop="product_name"
+          label="物品名称"
+          show-overflow-tooltip
+        ></el-table-column>
         <el-table-column prop="num" label="出库数量"></el-table-column>
         <el-table-column prop="unit" label="物品规格"></el-table-column>
         <el-table-column prop="store_type" label="仓库类型"></el-table-column>
@@ -118,10 +105,113 @@
 export default {
   data() {
     return {
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: "最近一月",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit("pick", [start, end]);
+            },
+          },
+          {
+            text: "最近一年",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 360);
+              picker.$emit("pick", [start, end]);
+            },
+          },
+          {
+            text: "第一季度",
+            onClick(picker) {
+              let date = new Date();
+              let year = date.getFullYear();
+              let startMonth = 1;
+              let endMonth = startMonth + 2;
+              if (endMonth < 10) {
+                endMonth = "0" + endMonth;
+              }
+              const start = year + "-01-01";
+              const end =
+                year +
+                "-" +
+                endMonth +
+                "-" +
+                new Date(year, endMonth, 0).getDate();
+              picker.$emit("pick", [start, end]);
+            },
+          },
+          {
+            text: "第二季度",
+            onClick(picker) {
+              let date = new Date();
+              let year = date.getFullYear();
+              let startMonth = 4;
+              let endMonth = startMonth + 2;
+              if (endMonth < 10) {
+                endMonth = "0" + endMonth;
+              }
+              const start = year + "-04-01";
+              const end =
+                year +
+                "-" +
+                endMonth +
+                "-" +
+                new Date(year, endMonth, 0).getDate();
+              picker.$emit("pick", [start, end]);
+            },
+          },
+          {
+            text: "第三季度",
+            onClick(picker) {
+              let date = new Date();
+              let year = date.getFullYear();
+              let startMonth = 7;
+              let endMonth = startMonth + 2;
+              if (endMonth < 10) {
+                endMonth = "0" + endMonth;
+              }
+              const start = year + "-07-01";
+              const end =
+                year +
+                "-" +
+                endMonth +
+                "-" +
+                new Date(year, endMonth, 0).getDate();
+              picker.$emit("pick", [start, end]);
+            },
+          },
+          {
+            text: "第四季度",
+            onClick(picker) {
+              let date = new Date();
+              let year = date.getFullYear();
+              let startMonth = 10;
+              let endMonth = startMonth + 2;
+              if (endMonth < 10) {
+                endMonth = "0" + endMonth;
+              }
+              const start = year + "-10-01";
+              const end =
+                year +
+                "-" +
+                endMonth +
+                "-" +
+                new Date(year, endMonth, 0).getDate();
+              picker.$emit("pick", [start, end]);
+              picker.$emit("pick", [start, end]);
+            },
+          },
+        ],
+      },
       searchFormData: {
+        searchName: "",
         searchStoreType: "",
         searchStore: "",
-        searchDateType: 4,
       },
       page_current: 1,
       page_size: 20,
@@ -143,8 +233,7 @@ export default {
       let name = this.searchFormData.searchName;
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
-      let time = this.searchFormData.serachTime;
-      let date_type = this.searchFormData.searchDateType;
+      let time_range = this.searchFormData.serachTime;
       let page = this.page_current;
       this.request({
         url: "/store/stockStatistics",
@@ -154,8 +243,7 @@ export default {
           name,
           store_id,
           store_type_id,
-          time,
-          date_type,
+          time_range,
           page,
         },
       }).then((res) => {
@@ -178,19 +266,15 @@ export default {
     },
     pageSearchResetEvent() {
       this.searchFormData = {
+        searchName: "",
         searchStore: "",
         searchStoreType: "",
-        searchDateType: 4,
       };
       this.getStoreLists();
       this.page_current = 1;
       this.getDataList();
     },
-    searchYearEvent(val) {
-      this.searchFormData.searchDateType = val;
-      this.page_current = 1;
-      this.getDataList();
-    },
+
     getStoreTypes() {
       this.request({
         url: "store/getStoreTypeLists",
@@ -226,6 +310,26 @@ export default {
         }
       });
     },
+    expectExcelOut() {
+      let type = 2; //出入库类别，1入库，2出库
+      let name = this.searchFormData.searchName;
+      let store_id = this.searchFormData.searchStore;
+      let store_type_id = this.searchFormData.searchStoreType;
+      let time_range = this.searchFormData.serachTime;
+      window.location.href =
+        this.hostURL +
+        "store/exportExcel?type=" +
+        type +
+        "&name=" +
+        name +
+        "&store_id=" +
+        store_id +
+        "&store_type_id=" +
+        store_type_id +
+        "&time_range[]=" +
+        time_range;
+    },
+
     //
   },
 };

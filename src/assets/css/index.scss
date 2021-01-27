@@ -24,10 +24,13 @@ ul,li{list-style-type: none}
 .app-page-select .el-button  span{font-size:14px!important;}
 .app-page-select .el-button--default{background: #E2E6EF;border-color: #E2E6EF;color: #999;}
 .app-page-select .el-button--default:hover{background: #d3d3d3;border-color: #d3d3d3;color: #666;}
-.app-page-select .el-date-editor.el-input{width: 186px;}
 .app-page-select .el-select{width: 186px;}
 .app-page-addbtn {margin-bottom: 20px;}
 .app-page-addbtn .rightadd{float: right;}
+.app-page-select .el-date-editor{width: 290px;}
+.app-page-select .el-date-editor .el-range-separator{  padding: 0 5px; width: auto;}
+.app-page-select .el-date-editor .el-range-input{width: 100px;}
+
 
 .el-search{position: fixed;top:15px;left: 240px;z-index: 1000;}
 .el-search .prepend {float: left;font-size: 17px; color: #fff; white-space: nowrap;padding: 15px 20px 0 0 }
