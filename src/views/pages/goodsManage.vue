@@ -18,7 +18,8 @@
           ></el-input>
         </el-form-item>
         <el-form-item class="el-form-item" label="物品名称：">
-          <el-input   maxlength="20"
+          <el-input
+            maxlength="20"
             v-model="searchFormData.searchName"
             class="input-with-select"
           ></el-input>
@@ -104,10 +105,19 @@
         label-width="110px"
       >
         <el-form-item label="物品编号：" prop="number">
-          <el-input v-model="formData.number" autocomplete="off" v-if="formData.id>0" disabled></el-input>
-          <el-input v-else v-model="formData.number" autocomplete="off"></el-input>
+          <el-input
+            v-model="formData.number"
+            autocomplete="off"
+            v-if="formData.id > 0"
+            disabled
+          ></el-input>
+          <el-input
+            v-else
+            v-model="formData.number"
+            autocomplete="off"
+          ></el-input>
         </el-form-item>
-           <el-form-item label="物品名称：" prop="name">
+        <el-form-item label="物品名称：" prop="name">
           <el-input v-model="formData.name" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="物品规格：" prop="unit">
@@ -140,24 +150,26 @@ export default {
         name: [
           {
             required: true,
-            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+            message: "请输入长度1-30个字符",
             trigger: "blur",
           },
           {
-            pattern: /^[0-9a/^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,20}$/,
-            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+            min: 1,
+            max: 30,
+            message: "请输入长度1-30个字符",
             trigger: "blur",
           },
         ],
         number: [
           {
             required: true,
-            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+            message: "请输入长度1-30个字符",
             trigger: "blur",
           },
           {
-            pattern: /^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,20}$/,
-            message: "请输入长度1-20个字符的汉字、字母、数字、下划线组合",
+            min: 1,
+            max: 30,
+            message: "请输入长度1-30个字符",
             trigger: "blur",
           },
         ],
@@ -168,7 +180,7 @@ export default {
             trigger: "blur",
           },
           {
-             pattern: /^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,10}$/,
+            pattern: /^[0-9a-zA-Z\u4e00-\u9fa5\_\-]{1,10}$/,
             message: "请输入长度1-10个字符的汉字、字母、数字、下划线组合",
             trigger: "blur",
           },
@@ -212,7 +224,7 @@ export default {
       let store_id = this.searchFormData.searchStore;
       this.request({
         url: "/product/getProductPages",
-        method: "get",                                                                                                            
+        method: "get",
         params: {
           page,
           name,
