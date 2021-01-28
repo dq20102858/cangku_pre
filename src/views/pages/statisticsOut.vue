@@ -316,9 +316,12 @@ export default {
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
       let time_range = this.searchFormData.serachTime;
+         if (time_range === "undefined") {
+        time_range = "";
+      }
       window.location.href =
         this.hostURL +
-        "store/exportExcel?type=" +
+        "/store/exportExcel?type=" +
         type +
         "&name=" +
         name +

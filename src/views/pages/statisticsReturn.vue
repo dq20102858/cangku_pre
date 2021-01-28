@@ -41,7 +41,10 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item class="el-form-item el-form-time-range" label="返还时间：">
+        <el-form-item
+          class="el-form-item el-form-time-range"
+          label="返还时间："
+        >
           <el-date-picker
             v-model="searchFormData.serachTime"
             type="daterange"
@@ -58,7 +61,9 @@
         <el-form-item class="el-form-item">
           <el-button type="primary" @click="pageSearchEvent">查询</el-button>
           <el-button @click="pageSearchResetEvent">重置</el-button>
-          <el-button plain type="warning" @click="expectExcelOut">导出信息</el-button>
+          <el-button plain type="warning" @click="expectExcelOut"
+            >导出信息</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -316,9 +321,12 @@ export default {
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
       let time_range = this.searchFormData.serachTime;
+      if (typeof(time_range) == "undefined") {
+        time_range = "";
+      }
       window.location.href =
         this.hostURL +
-        "store/exportExcel?type=" +
+        "/store/exportExcel?type=" +
         type +
         "&name=" +
         name +
