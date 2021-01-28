@@ -47,13 +47,12 @@
           <el-date-picker
             v-model="searchFormData.serachTime"
             type="daterange"
-            unlink-panels
             value-format="yyyy-MM-dd"
             :picker-options="pickerOptions"
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
-            align="right"
+            align="center"
           >
           </el-date-picker>
         </el-form-item>
@@ -125,8 +124,9 @@ export default {
             text: "最近一年",
             onClick(picker) {
               const end = new Date();
+              
               const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 360);
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
               picker.$emit("pick", [start, end]);
             },
           },

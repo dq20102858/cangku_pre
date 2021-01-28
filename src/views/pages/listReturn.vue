@@ -55,6 +55,7 @@
             type="date"
             value-format="yyyy-MM-dd"
             placeholder="选择日期"
+             align="center"
           >
           </el-date-picker>
         </el-form-item>
@@ -71,7 +72,7 @@
             scope.$index + (page_current - 1) * page_size + 1
           }}</template>
         </el-table-column>
-        <el-table-column prop="store_number" label="入库编号"></el-table-column>
+        <el-table-column prop="store_number" label="返还编号"></el-table-column>
         <el-table-column prop="manager" label="返还人员"></el-table-column>
         <el-table-column prop="depart" label="所属部门"></el-table-column>
         <el-table-column prop="store_type" label="仓库类型"></el-table-column>
@@ -192,7 +193,7 @@ export default {
   },
   methods: {
     getDataList() {
-     let type = 3; //出入库类别，1入库，2出库，3返还
+     let type = 3; //出返还类别，1返还，2出库，3返还
       let page = this.page_current;
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
