@@ -1,6 +1,12 @@
 <template>
   <el-scrollbar wrapClass="app-scrollbar-wrapper">
-    <el-menu class="app-menus" ref="menus"  :default-openeds="openeds"  :default-active="activeIndex" router>
+    <el-menu
+      class="app-menus"
+      ref="menus"
+      :default-openeds="openeds"
+      :default-active="activeIndex"
+      router
+    >
       >
       <li class="slogo">仓库管理平台</li>
       <template v-for="item in moduleMenu">
@@ -67,6 +73,12 @@ export default {
             },
             {
               id: 14,
+              moduleAction: "listReturn",
+              moduleIcon: "",
+              moduleName: "返还管理 ",
+            },
+            {
+              id: 15,
               moduleAction: "alerting",
               moduleIcon: "",
               moduleName: "库存告警",
@@ -119,6 +131,12 @@ export default {
               moduleIcon: "",
               moduleName: "出库统计",
             },
+            {
+              id: 33,
+              moduleAction: "statisticsReturn",
+              moduleIcon: "",
+              moduleName: "返还统计",
+            },
           ],
         },
       ],
@@ -166,7 +184,7 @@ export default {
 }
 .app-menus .slogo {
   background: #4886ff;
- padding-left:20px;
+  padding-left: 20px;
   height: 80px;
   line-height: 80px;
   color: #fff;
@@ -195,7 +213,7 @@ export default {
 }
 .app-menus .el-menu-item {
   font-size: 15px;
-  color: #78797c; 
+  color: #78797c;
   background: url("~@/assets/image/icon-line.png") no-repeat top center;
 }
 

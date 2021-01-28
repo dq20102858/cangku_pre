@@ -42,7 +42,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item class="el-form-item" label="告警时间：">
+        <el-form-item class="el-form-item el-form-date" label="告警时间：">
           <el-date-picker
             v-model="searchFormData.serachDate"
             type="date"

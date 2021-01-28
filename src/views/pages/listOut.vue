@@ -49,7 +49,7 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item class="el-form-item" label="出库时间：">
+        <el-form-item class="el-form-item el-form-date" label="出库时间：">
           <el-date-picker
             v-model="searchFormData.serachDate"
             type="date"
@@ -192,7 +192,7 @@ export default {
   },
   methods: {
     getDataList() {
-      let type = 2; //出出库类别，1出库，2出库
+     let type = 2; //出入库类别，1入库，2出库，3返还
       let page = this.page_current;
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;

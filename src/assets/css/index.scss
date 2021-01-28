@@ -27,10 +27,10 @@ ul,li{list-style-type: none}
 .app-page-select .el-select{width: 186px;}
 .app-page-addbtn {margin-bottom: 20px;}
 .app-page-addbtn .rightadd{float: right;}
-.app-page-select .el-date-editor{width: 290px;}
-.app-page-select .el-date-editor .el-range-separator{  padding: 0 5px; width: auto;}
-.app-page-select .el-date-editor .el-range-input{width: 100px;}
-
+.app-page-select .el-form-time-range .el-date-editor{width: 290px;}
+.app-page-select .el-form-time-range .el-date-editor .el-range-separator{  padding: 0 5px; width: auto;}
+.app-page-select .el-form-time-range .el-date-editor .el-range-input{width: 100px;}
+.app-page-select .el-form-date .el-date-editor{width: 185px;}
 
 .el-search{position: fixed;top:15px;left: 240px;z-index: 1000;}
 .el-search .prepend {float: left;font-size: 17px; color: #fff; white-space: nowrap;padding: 15px 20px 0 0 }

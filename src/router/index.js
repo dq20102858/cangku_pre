@@ -42,7 +42,10 @@ const constantRouterMap = [
       {
         path: '/listOut',
         component: () => import('@/views/pages/listOut')
-      }, 
+      }, {
+        path: '/listReturn',
+        component: () => import('@/views/pages/listReturn')
+      },
       {
         path: '/alerting',
         component: () => import('@/views/pages/alerting')
@@ -66,6 +69,10 @@ const constantRouterMap = [
       {
         path: '/statisticsOut',
         component: () => import('@/views/pages/statisticsOut')
+      },
+      {
+        path: '/statisticsReturn',
+        component: () => import('@/views/pages/statisticsReturn')
       }
     ]
   }

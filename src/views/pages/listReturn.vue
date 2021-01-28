@@ -1,8 +1,9 @@
 <template>
   <div class="app-page">
     <div class="el-search">
-      <div class="prepend">入库管理</div>
+      <div class="prepend">返还管理</div>
     </div>
+
     <div class="app-page-select">
       <el-form :inline="true">
         <el-form-item class="el-form-item" label="仓库类型：">
@@ -34,10 +35,10 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item class="el-form-item" label="入库人员：">
+        <el-form-item class="el-form-item" label="返还人员：">
           <el-select
             v-model="searchFormData.searchUsers"
-            placeholder="选择仓库名称"
+            placeholder="选择返还人员："
           >
             <el-option label="全部人员" value=""></el-option>
             <el-option
@@ -48,11 +49,11 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item class="el-form-item el-form-date" label="入库时间：">
+        <el-form-item class="el-form-item el-form-date" label="返还时间：">
           <el-date-picker
             v-model="searchFormData.serachDate"
             type="date"
-           value-format="yyyy-MM-dd"
+            value-format="yyyy-MM-dd"
             placeholder="选择日期"
           >
           </el-date-picker>
@@ -71,18 +72,18 @@
           }}</template>
         </el-table-column>
         <el-table-column prop="store_number" label="入库编号"></el-table-column>
-        <el-table-column prop="manager" label="入库人员"></el-table-column>
+        <el-table-column prop="manager" label="返还人员"></el-table-column>
         <el-table-column prop="depart" label="所属部门"></el-table-column>
         <el-table-column prop="store_type" label="仓库类型"></el-table-column>
         <el-table-column prop="store" label="仓库名称"></el-table-column>
-         <el-table-column prop="create_time" label="入库时间"></el-table-column>
-        <el-table-column label="入库详情" width="80">
+          <el-table-column prop="create_time" label="返还时间"></el-table-column>
+        <el-table-column label="返还详情" width="80">
           <template slot-scope="scope">
             <div class="app-operation">
               <el-button
                 class="btn-detail"
                 @click="editRecEvent(scope.row.id)"
-                title="详情"
+                title="编辑"
                 ><i class="el-icon-set-up"></i
               ></el-button>
             </div>
@@ -97,7 +98,7 @@
           :page-size="this.page_size"
           :total="this.page_total"
           @current-change="pageChange"
-             prev-text="上一页"
+          prev-text="上一页"
           next-text="下一页"
         >
         </el-pagination>
@@ -106,7 +107,7 @@
     <el-dialog
       width="780px"
       class="dialog-listinto"
-      title="入库详情"
+      title="返还详情"
       :append-to-body="true"
       :lock-scroll="false"
       :visible.sync="diaLogFormVisible"
@@ -114,10 +115,16 @@
       <el-card class="box-card">
         <div class="text item">
           <div class="userinfo">
-            <p><span>入库人员：</span> {{ formData.user }}</p>
+            <p><span>返还人员：</span> {{ formData.user }}</p>
             <p><span>仓库名称： </span>{{ formData.store }}</p>
-            <p><span>入库时间：</span> {{ formData.create_time }}</p>
-            <p><span style="color:#36c;cursor: pointer;" @click="picRecEvent(formData.avatar)">查看图片</span></p>
+            <p><span>返还时间：</span> {{ formData.create_time }}</p>
+            <p>
+              <span
+                style="color: #36c; cursor: pointer"
+                @click="picRecEvent(formData.avatar)"
+                >查看图片</span
+              >
+            </p>
           </div>
         </div>
       </el-card>
@@ -185,7 +192,7 @@ export default {
   },
   methods: {
     getDataList() {
-    let type = 1; //出入库类别，1入库，2出库，3返还
+     let type = 3; //出入库类别，1入库，2出库，3返还
       let page = this.page_current;
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
@@ -276,6 +283,10 @@ export default {
         }
       });
     },
+    picRecEvent(val) {
+      this.diaLogFormPicVisible = true;
+      this.diaLogFormPicURL = val;
+    },
     editRecEvent(id) {
       this.diaLogFormVisible = true;
       this.request({
@@ -288,10 +299,6 @@ export default {
           this.formData = data.data;
         }
       });
-    },
-    picRecEvent(val) {
-      this.diaLogFormPicVisible = true;
-      this.diaLogFormPicURL = val;
     },
     //
   },
