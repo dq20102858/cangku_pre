@@ -40,7 +40,10 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item class="el-form-item el-form-time-range" label="入库时间：">
+        <el-form-item
+          class="el-form-item el-form-time-range"
+          label="入库时间："
+        >
           <el-date-picker
             v-model="searchFormData.serachTime"
             type="daterange"
@@ -57,7 +60,9 @@
         <el-form-item class="el-form-item">
           <el-button type="primary" @click="pageSearchEvent">查询</el-button>
           <el-button @click="pageSearchResetEvent">重置</el-button>
-          <el-button plain type="warning" @click="expectExcelOut">导出信息</el-button>
+          <el-button plain type="warning" @click="expectExcelOut"
+            >导出信息</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -229,7 +234,7 @@ export default {
   },
   methods: {
     getDataList() {
-    let type =1; //出入库类别，1入库，2出库，3返还
+      let type = 1; //出入库类别，1入库，2出库，3返还
       let name = this.searchFormData.searchName;
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
@@ -311,13 +316,13 @@ export default {
       });
     },
     expectExcelOut() {
-   let type =1; //出入库类别，1入库，2出库，3返还
+      let type = 1; //出入库类别，1入库，2出库，3返还
       let name = this.searchFormData.searchName;
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
       let time_range = this.searchFormData.serachTime;
-      if (typeof(time_range) == "undefined") {
-        time_range = "";
+      if (typeof time_range == "undefined") {
+        time_range= ["",""];
       }
       window.location.href =
         this.hostURL +
@@ -330,7 +335,9 @@ export default {
         "&store_type_id=" +
         store_type_id +
         "&time_range[]=" +
-        time_range;
+        time_range[0] +
+        "&time_range[]=" +
+        time_range[1];
     },
     //
   },

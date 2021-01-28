@@ -321,8 +321,8 @@ export default {
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
       let time_range = this.searchFormData.serachTime;
-      if (typeof(time_range) == "undefined") {
-        time_range = "";
+     if (typeof time_range == "undefined") {
+        time_range= ["",""];
       }
       window.location.href =
         this.hostURL +
@@ -335,7 +335,9 @@ export default {
         "&store_type_id=" +
         store_type_id +
         "&time_range[]=" +
-        time_range;
+         time_range[0] +
+        "&time_range[]=" +
+        time_range[1];
     },
 
     //
