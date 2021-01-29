@@ -124,7 +124,8 @@ export default {
             text: "最近一年",
             onClick(picker) {
               const end = new Date();
-              
+              // start = new Date();
+              // start.setYear(start.getFullYear() - 1);
               const start = new Date();
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
               picker.$emit("pick", [start, end]);
@@ -322,7 +323,7 @@ export default {
       let store_type_id = this.searchFormData.searchStoreType;
       let time_range = this.searchFormData.serachTime;
       if (typeof time_range == "undefined") {
-        time_range= ["",""];
+        time_range = ["", ""];
       }
       window.location.href =
         this.hostURL +

@@ -64,7 +64,7 @@
             scope.$index + (page_current - 1) * page_size + 1
           }}</template>
         </el-table-column>
-        <el-table-column prop="name" label="仓库名称"></el-table-column>
+        <el-table-column prop="name" label="仓库名称" show-overflow-tooltip></el-table-column>
         <el-table-column prop="store_type" label="仓库类型"></el-table-column>
         <el-table-column prop="manager" label="责任人"></el-table-column>
         <el-table-column prop="address" label="仓库位置" show-overflow-tooltip></el-table-column>
