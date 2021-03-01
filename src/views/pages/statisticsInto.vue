@@ -40,6 +40,35 @@
             ></el-option>
           </el-select>
         </el-form-item>
+
+        <el-form-item class="el-form-item" label="所属部门：">
+          <el-select
+            v-model="searchFormData.searchDepartId"
+            placeholder="请选择部门"
+          >
+            <el-option label="全部部门" value=""></el-option>
+            <el-option
+              v-for="item in departListItem"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="el-form-item" label="入库人员：">
+          <el-select
+            v-model="searchFormData.searchUserId"
+            placeholder="选择人员："
+          >
+            <el-option label="全部人员" value=""></el-option>
+            <el-option
+              v-for="item in userListItem"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item
           class="el-form-item el-form-time-range"
           label="入库时间："
@@ -218,6 +247,8 @@ export default {
         searchName: "",
         searchStore: "",
         searchStoreType: "",
+        searchDepartId: "",
+        searchUserId: "",
       },
       page_current: 1,
       page_size: 20,
@@ -225,6 +256,8 @@ export default {
       dataList: [],
       storeTypeList: [],
       storeList: [],
+      departListItem: [],
+      userListItem: [],
     };
   },
 
@@ -232,6 +265,8 @@ export default {
     this.getDataList();
     this.getStoreTypes();
     this.getStoreLists();
+    this.getDepartLists();
+    this.getUserLists();
   },
   methods: {
     getDataList() {
@@ -240,6 +275,8 @@ export default {
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
       let time_range = this.searchFormData.serachTime;
+      let depart_id = this.searchFormData.searchDepartId;
+      let user_id = this.searchFormData.searchUserId;
       let page = this.page_current;
       this.request({
         url: "/store/stockStatistics",
@@ -250,6 +287,8 @@ export default {
           store_id,
           store_type_id,
           time_range,
+          depart_id,
+          user_id,
           page,
         },
       }).then((res) => {
@@ -275,12 +314,35 @@ export default {
         searchName: "",
         searchStore: "",
         searchStoreType: "",
+        searchDepartId: "",
+        searchUserId: "",
       };
       this.getStoreLists();
       this.page_current = 1;
       this.getDataList();
     },
-
+    getDepartLists() {
+      this.request({
+        url: "/user/getDepartLists",
+        method: "get",
+      }).then((response) => {
+        var data = response.data;
+        if (data.status == 1) {
+          this.departListItem = data.data;
+        }
+      });
+    },
+    getUserLists() {
+      this.request({
+        url: "/user/getAdminLists",
+        method: "get",
+      }).then((response) => {
+        var res = response.data;
+        if (res.status == 1) {
+          this.userListItem = res.data;
+        }
+      });
+    },
     getStoreTypes() {
       this.request({
         url: "store/getStoreTypeLists",
@@ -322,6 +384,8 @@ export default {
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
       let time_range = this.searchFormData.serachTime;
+      let depart_id = this.searchFormData.searchDepartId;
+      let user_id = this.searchFormData.searchUserId;
       if (typeof time_range == "undefined") {
         time_range = ["", ""];
       }
@@ -335,6 +399,10 @@ export default {
         store_id +
         "&store_type_id=" +
         store_type_id +
+        "&depart_id=" +
+        depart_id +
+        "&user_id=" +
+        user_id +
         "&time_range[]=" +
         time_range[0] +
         "&time_range[]=" +
