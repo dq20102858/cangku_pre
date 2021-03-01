@@ -383,7 +383,7 @@ export default {
       let store_id = this.searchFormData.searchStore;
       let store_type_id = this.searchFormData.searchStoreType;
       let time_range = this.searchFormData.serachTime;
-          let depart_id = this.searchFormData.searchDepartId;
+      let depart_id = this.searchFormData.searchDepartId;
       let user_id = this.searchFormData.searchUserId;
       if (typeof time_range == "undefined") {
         time_range = ["", ""];
@@ -398,7 +398,7 @@ export default {
         store_id +
         "&store_type_id=" +
         store_type_id +
-          "&depart_id=" +
+        "&depart_id=" +
         depart_id +
         "&user_id=" +
         user_id +
