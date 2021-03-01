@@ -12,6 +12,7 @@
             class="input-with-select"
           ></el-input>
         </el-form-item>
+        
         <el-form-item class="el-form-item" label="仓库类型：">
           <el-select
             v-model="searchFormData.searchStoreType"
