@@ -45,7 +45,7 @@
         <el-form-item class="el-form-item" label="所属部门：">
           <el-select
             v-model="searchFormData.searchDepartId"
-            placeholder="请选择部门"
+            placeholder="请选择部门"   @change="searchDepartChange($event)"
           >
             <el-option label="全部部门" value=""></el-option>
             <el-option
@@ -113,6 +113,8 @@
         <el-table-column prop="unit" label="物品规格"></el-table-column>
         <el-table-column prop="store_type" label="仓库类型"></el-table-column>
         <el-table-column prop="store" label="仓库名称"></el-table-column>
+          <el-table-column prop="depart" label="部门"></el-table-column>
+        <el-table-column prop="user" label="人员"></el-table-column>
         <el-table-column
           width="160"
           prop="create_time"
@@ -317,6 +319,7 @@ export default {
         searchUserId: "",
       };
       this.getStoreLists();
+        this.getUserLists();
       this.page_current = 1;
       this.getDataList();
     },
@@ -331,9 +334,14 @@ export default {
         }
       });
     },
-    getUserLists() {
+   searchDepartChange(id) {
+       this.$set(this.searchFormData, "searchUserId", "");
+      this.getUserLists(id);
+    },
+    getUserLists(id) {
       this.request({
         url: "/user/getAdminLists",
+        params: { depart_id: id },
         method: "get",
       }).then((response) => {
         var res = response.data;
