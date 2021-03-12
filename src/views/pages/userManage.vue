@@ -265,7 +265,7 @@
             ></el-button>
           </el-col>
         </el-form-item>
-        <el-form-item label="电话号码：" prop="phone">
+        <el-form-item label="电话号码：">
           <el-input v-model="formData.phone" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
