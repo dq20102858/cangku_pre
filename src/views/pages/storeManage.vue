@@ -66,7 +66,7 @@
         </el-table-column>
         <el-table-column prop="name" label="仓库名称" show-overflow-tooltip></el-table-column>
         <el-table-column prop="store_type" label="仓库类型" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="manager" label="责任人"></el-table-column>
+        <el-table-column prop="manager" label="责任人" show-overflow-tooltip></el-table-column>
         <el-table-column prop="address" label="仓库位置" show-overflow-tooltip></el-table-column>
         <el-table-column label="操作" width="88">
           <template slot-scope="scope">

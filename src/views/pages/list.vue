@@ -54,11 +54,11 @@
             scope.$index + (page_current - 1) * page_size + 1
           }}</template>
         </el-table-column>
-        <el-table-column prop="number" label="物品编号"></el-table-column>
+        <el-table-column prop="number" label="物品编号" show-overflow-tooltip></el-table-column>
         <el-table-column prop="product_name" label="物品名称" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="stock" label="物品数量"></el-table-column>
-        <el-table-column prop="unit" label="物品规格"></el-table-column>
-        <el-table-column prop="store" label="仓库名称"></el-table-column>
+        <el-table-column prop="stock" label="物品数量"  show-overflow-tooltip></el-table-column>
+        <el-table-column prop="unit" label="物品规格"  show-overflow-tooltip></el-table-column>
+        <el-table-column prop="store" label="仓库名称" show-overflow-tooltip></el-table-column>
         <el-table-column prop="alert_num" label="告警数量" width="100">
           <!-- <template slot-scope="scope">
             <span v-if="scope.row.alert_num == 0"></span>

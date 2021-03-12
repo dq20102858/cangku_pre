@@ -72,12 +72,12 @@
             scope.$index + (page_current - 1) * page_size + 1
           }}</template>
         </el-table-column>
-        <el-table-column prop="store_number" label="出库编号"></el-table-column>
-        <el-table-column prop="manager" label="出库人员"></el-table-column>
-        <el-table-column prop="depart" label="所属部门"></el-table-column>
-        <el-table-column prop="store_type" label="仓库类型"></el-table-column>
-        <el-table-column prop="store" label="仓库名称"></el-table-column>
-          <el-table-column prop="create_time" label="出库时间"></el-table-column>
+        <el-table-column prop="store_number" label="出库编号" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="manager" label="出库人员" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="depart" label="所属部门" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="store_type" label="仓库类型" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="store" label="仓库名称" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="create_time" label="出库时间" show-overflow-tooltip></el-table-column>
         <el-table-column label="出库详情" width="80">
           <template slot-scope="scope">
             <div class="app-operation">
@@ -136,12 +136,12 @@
         <div class="text item">
           <div class="app-table app-table-nowrap">
             <el-table  height="410" :data="formData.list" border stripe>
-              <el-table-column prop="number" label="物品编号" width="160"></el-table-column>
+              <el-table-column prop="number" label="物品编号"  show-overflow-tooltip></el-table-column>
               <el-table-column
                 prop="product_name"
                 label="物品名称"  show-overflow-tooltip
               ></el-table-column>
-              <el-table-column prop="num" label="数量" width="90"></el-table-column>
+              <el-table-column prop="num" label="数量" width="90"  show-overflow-tooltip></el-table-column>
               <el-table-column prop="unit" label="规格" width="90"  show-overflow-tooltip></el-table-column>
             </el-table>
           </div>

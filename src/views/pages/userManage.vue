@@ -59,10 +59,10 @@
             scope.$index + (page_current - 1) * page_size + 1
           }}</template>
         </el-table-column>
-        <el-table-column prop="name" label="人员姓名"></el-table-column>
-        <el-table-column prop="depart" label="所属部门"></el-table-column>
-        <el-table-column prop="post" label="人员职位"></el-table-column>
-        <el-table-column prop="phone" label="电话"></el-table-column>
+        <el-table-column prop="name" label="人员姓名" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="depart" label="所属部门" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="post" label="人员职位" show-overflow-tooltip></el-table-column>
+        <el-table-column prop="phone" label="电话" show-overflow-tooltip></el-table-column>
         <el-table-column label="操作" width="88">
           <template slot-scope="scope">
             <div class="app-operation">
