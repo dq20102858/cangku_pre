@@ -104,22 +104,14 @@
           }}</template>
         </el-table-column>
         <el-table-column prop="number" label="物品编号" show-overflow-tooltip></el-table-column>
-        <el-table-column
-          prop="product_name"
-          label="物品名称"
-          show-overflow-tooltip
-        ></el-table-column>
+        <el-table-column  prop="product_name"  label="物品名称"  show-overflow-tooltip></el-table-column>
         <el-table-column prop="num" label="出库数量" show-overflow-tooltip></el-table-column>
         <el-table-column prop="unit" label="物品规格" show-overflow-tooltip></el-table-column>
         <el-table-column prop="store_type" label="仓库类型" show-overflow-tooltip></el-table-column>
         <el-table-column prop="store" label="仓库名称" show-overflow-tooltip></el-table-column>
           <el-table-column prop="depart" label="部门" show-overflow-tooltip></el-table-column>
         <el-table-column prop="user" label="人员" show-overflow-tooltip></el-table-column>
-        <el-table-column
-          width="160"
-          prop="create_time"
-          label="出库时间"
-        ></el-table-column>
+        <el-table-column   prop="create_time"  label="出库时间" show-overflow-tooltip></el-table-column>
       </el-table>
       <div class="app-pagination" v-if="dataList.length !== 0">
         <el-pagination

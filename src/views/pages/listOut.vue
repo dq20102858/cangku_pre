@@ -141,8 +141,8 @@
                 prop="product_name"
                 label="物品名称"  show-overflow-tooltip
               ></el-table-column>
-              <el-table-column prop="num" label="数量" width="90"  show-overflow-tooltip></el-table-column>
-              <el-table-column prop="unit" label="规格" width="90"  show-overflow-tooltip></el-table-column>
+              <el-table-column prop="num" label="数量"  show-overflow-tooltip></el-table-column>
+              <el-table-column prop="unit" label="规格"  show-overflow-tooltip></el-table-column>
             </el-table>
           </div>
         </div>
