@@ -89,7 +89,6 @@
         </el-pagination>
       </div>
     </div>
-    
     <el-dialog
       width="600px"
       class="dialog-goods"
