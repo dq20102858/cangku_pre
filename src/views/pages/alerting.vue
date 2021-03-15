@@ -71,7 +71,7 @@
         <el-table-column prop="unit" label="物品规格"></el-table-column>
         <el-table-column prop="store_type" label="仓库类型" show-overflow-tooltip></el-table-column>
         <el-table-column prop="store" label="仓库名称" show-overflow-tooltip></el-table-column>
-        <el-table-column prop="create_time" label="告警时间" width="100"></el-table-column>
+        <el-table-column prop="create_time" label="告警时间" width="160"></el-table-column>
       </el-table>
       <div class="app-pagination">
         <el-pagination

@@ -77,7 +77,7 @@
         <el-table-column prop="depart" label="所属部门" show-overflow-tooltip></el-table-column>
         <el-table-column prop="store_type" label="仓库类型" show-overflow-tooltip></el-table-column>
         <el-table-column prop="store" label="仓库名称" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="create_time" label="返还时间" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="create_time" label="返还时间"  width="160"></el-table-column>
         <el-table-column label="返还详情" width="80">
           <template slot-scope="scope">
             <div class="app-operation">
