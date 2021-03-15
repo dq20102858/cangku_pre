@@ -50,7 +50,7 @@
           label="物品名称"
           show-overflow-tooltip
         ></el-table-column>
-        <el-table-column prop="unit" label="物品规格"></el-table-column>
+        <el-table-column prop="unit" label="物品规格"  show-overflow-tooltip></el-table-column>
         <el-table-column
           prop="remark"
           label="备注"
