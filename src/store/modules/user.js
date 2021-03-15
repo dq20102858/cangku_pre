@@ -1,11 +1,30 @@
 import request from '@/utils/request'
-import {
-  getToken,
-  setToken,
-  setSystem,
-  getSystem,
-  removeToken
-} from '@/utils/auth'
+// import {
+//   getToken,
+//   setToken,
+//   setSystem,
+//   getSystem,
+//   removeToken
+// } from '@/utils/auth'
+
+import Cookies from 'js-cookie'
+const TokenKey = 'Admin-Token'
+const System = 'System'
+function getToken() {
+  return Cookies.get(TokenKey)
+}
+function setToken(token) {
+  return Cookies.set(TokenKey, token)
+}
+function removeToken() {
+  return Cookies.remove(TokenKey)
+}
+function setSystem(system) {
+  return Cookies.set(System, system)
+}
+function getSystem() {
+  return Cookies.get(System)
+}
 
 const user = {
   state: {
